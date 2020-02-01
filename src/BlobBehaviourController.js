@@ -13,12 +13,21 @@ export function BlobBehaviourController({ blob, blobWork, blobWander, blobFloat,
 
     function run() {
         if (disasterEngine.flooding()) {
+            if (behaviour !== Float) {
+                changeFrom(behaviour);
+            }
             float();
         }
         else if (seed.canBeHarvested() || !blob.hasEmptyHands()) {
+            if (behaviour !== Work) {
+                changeFrom(behaviour);
+            }
             work();
         }
         else {
+            if (behaviour !== Wander) {
+                changeFrom(behaviour);
+            }
             wander();
         }
     }
@@ -58,6 +67,12 @@ export function BlobBehaviourController({ blob, blobWork, blobWander, blobFloat,
         }
         else {
             blobFloat.stop();
+        }
+    }
+
+    function changeFrom(fromBehaviour) {
+        if (fromBehaviour === Float) {
+            blob.setPosition({ x: blob.position().x, y: blob.startingPositionY() });
         }
     }
 }

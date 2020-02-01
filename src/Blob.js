@@ -1,6 +1,10 @@
+export const BlobStartingPositionY = 1;
+
 export function BlobCharacter({ state }) {
     return {
+        startingPositionY: () => BlobStartingPositionY,
         position,
+        setPosition,
         move,
         width,
         hasEmptyHands,
@@ -11,6 +15,11 @@ export function BlobCharacter({ state }) {
 
     function position() {
         return { ...state().blob.position };
+    }
+
+    function setPosition({ x, y }) {
+        state().blob.position.x = x;
+        state().blob.position.y = y;
     }
 
     function move(x = 0, y = 0) {

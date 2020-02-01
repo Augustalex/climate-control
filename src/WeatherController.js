@@ -4,7 +4,7 @@ export const Weathers = {
     Sunny: 'weather-sunny'
 };
 
-export function WeatherController({ state, cloud, foreground }) {
+export function WeatherController({ state, cloud, foreground, disaster }) {
     return {
         run,
         rain,
@@ -29,6 +29,10 @@ export function WeatherController({ state, cloud, foreground }) {
         else if (sunny()) {
             cloud.sun();
             foreground.sun();
+
+            if (disaster.flooding()) {
+                disaster.dry();
+            }
         }
     }
 

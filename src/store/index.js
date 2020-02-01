@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Game from "@/Game.js";
-import {BlobCharacter} from "@/Blob.js";
+import {BlobCharacter, BlobStartingPositionY} from "@/Blob.js";
 import {BlobWander} from "@/BlobWander.js";
 import {DisplayMap} from "@/DisplayMap.js";
 import {CloudBop} from "@/CloudBop.js";
@@ -19,18 +19,22 @@ import {Seed, SeedState} from "@/Seed.js";
 import {BlobFloat} from "@/BlobFloat.js";
 import {DisasterEngine} from "@/DisasterEngine.js";
 import {HouseFire} from "@/HouseFire.js";
+import {Weather} from "@/Weather.js";
+import {Disaster} from "@/Disaster.js";
 
 Vue.use(Vuex);
 
 let store;
 
 const sliderIsLowered = SliderIsLowered({ state: () => store.state.sliders.find(s => s.id === 'WeatherSlider') });
+const weather = Weather({ state: () => store.state.weather });
+const disaster = Disaster({ state: () => store.state.disaster });
 const cloud = Cloud({ state: () => store.state.cloud });
 const foreground = Foreground({ state: () => store.state.foreground });
 const buttonA = Button({ id: 'ButtonA', state: () => store.state.buttons.find(b => b.id === 'ButtonA') });
 const buttonB = Button({ id: 'ButtonB', state: () => store.state.buttons.find(b => b.id === 'ButtonB') });
 
-const weatherController = WeatherController({ state: () => store.state.weather, cloud, foreground });
+const weatherController = WeatherController({ state: () => store.state.weather, cloud, foreground, disaster });
 
 const seed = Seed({ weatherController, state: () => store.state.seed });
 const cloudBop = CloudBop({ cloud });
@@ -39,7 +43,7 @@ const map = DisplayMap({ state: () => store.state });
 const blobWander = BlobWander({ blob, map });
 const house = House({ state: () => store.state.house });
 const blobWork = BlobWork({ blob, house, map, seed });
-const disasterEngine = DisasterEngine({ state: () => store.state.disaster, weatherController, map, house });
+const disasterEngine = DisasterEngine({ state: () => store.state.disaster, weather, map, house });
 
 const houseFire = HouseFire({ disasterEngine, house });
 const blobFloat = BlobFloat({ blob, map, disasterEngine });
@@ -129,7 +133,7 @@ store = new Vuex.Store({
             },
             position: {
                 x: 3,
-                y: 1
+                y: BlobStartingPositionY
             }
         },
         house: {

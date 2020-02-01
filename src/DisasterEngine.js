@@ -1,22 +1,31 @@
-export function DisasterEngine({ state, weatherController, map, house }) {
+export function DisasterEngine({ state, weather, map, house }) {
     return {
         run,
         flooding,
         inflames,
         extinguish,
+        dry,
         ticks: () => state().ticks,
     };
 
     function run() {
         if (disasterRunning()) {
-            state().ticks = Math.min(map.height() - 6, state().ticks + 1);
+            if (drying()) {
+                state().ticks = Math.max(0, state().ticks - 1);
+                if (state().ticks === 0) {
+                    endDrying();
+                }
+            }
+            else {
+                state().ticks = Math.min(map.height() - 6, state().ticks + 1);
+            }
         }
         else {
-            if (weatherController.ticks() > 10) {
-                if (weatherController.raining()) {
+            if (weather.ticks() > 10) {
+                if (weather.raining()) {
                     flood();
                 }
-                else if (weatherController.sunny()) {
+                else if (weather.sunny()) {
                     if (!house.demolished()) {
                         enflame();
                     }
@@ -34,8 +43,16 @@ export function DisasterEngine({ state, weatherController, map, house }) {
     }
 
     function dry() {
+        state().drying = true;
+    }
+
+    function endDrying() {
+        state().drying = false;
         state().flood = false;
-        state().ticks = 0;
+    }
+
+    function drying() {
+        return state().drying;
     }
 
     function enflame() {
