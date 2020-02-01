@@ -1,7 +1,9 @@
 export function Disaster({ state }) {
     return {
         flooding,
-        dry
+        dry,
+        inflames,
+        extinguish
     };
 
     function dry() {
@@ -14,5 +16,14 @@ export function Disaster({ state }) {
 
     function flooding() {
         return state().flood;
+    }
+
+    function inflames() {
+        return state().fire;
+    }
+
+    function extinguish() {
+        state().fire = false;
+        state().ticks = 0;
     }
 }

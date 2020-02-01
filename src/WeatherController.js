@@ -21,6 +21,10 @@ export function WeatherController({ state, cloud, foreground, disaster }) {
         if (raining()) {
             cloud.rain();
             foreground.rain();
+
+            if (disaster.inflames()) {
+                disaster.extinguish();
+            }
         }
         else if (isClear()) {
             cloud.clear();
