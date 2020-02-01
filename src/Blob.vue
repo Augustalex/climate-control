@@ -1,5 +1,6 @@
 <template>
     <div class="blob" :style="style">
+        <div v-if="!handsEmpty" class="blob-hands" :style="handsStyle"></div>
     </div>
 </template>
 <script>
@@ -12,10 +13,18 @@
                 'blob',
                 'map'
             ]),
+            handsEmpty() {
+                return this.blob.inHands.type === 'empty';
+            },
             style() {
                 return {
                     left: `${this.blob.position.x * this.map.scale}px`,
                     bottom: `${this.blob.position.y * this.map.scale}px`,
+                };
+            },
+            handsStyle() {
+                return {
+                    background: 'green',
                 };
             }
         }
@@ -30,4 +39,11 @@
         position: absolute;
     }
 
+    .blob-hands {
+        width: 2px;
+        height: 2px;
+        position: absolute;
+        top: 1px;
+        left: -1px;
+    }
 </style>

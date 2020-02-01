@@ -2,6 +2,7 @@ export function CloudBop({ cloud }) {
     const frames = [
         { x: 2, y: 6 },
         { x: 2, y: 5 },
+        { x: 2, y: 5 },
         { x: 2, y: 6 },
     ];
     let currentFrameIndex = 0;

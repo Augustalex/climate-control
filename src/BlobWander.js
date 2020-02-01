@@ -1,11 +1,25 @@
 export function BlobWander({ blob, map }) {
+    let running = false;
     let direction = -1;
 
     return {
-        wander
+        start,
+        stop,
+        run
     };
 
-    function wander(delta) {
+    function start() {
+        blob.emptyHands();
+        running = true;
+    }
+
+    function stop() {
+        running = false;
+    }
+
+    function run(delta) {
+        if (!running) return;
+
         if (nearLeftEdge()) {
             direction = 1;
         }

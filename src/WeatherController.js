@@ -1,10 +1,11 @@
 export function WeatherController({ cloud, foreground }) {
-    let isRaining = true;
+    let isRaining = false;
 
     return {
         run,
         rain,
-        clear
+        clear,
+        raining
     };
 
     function run() {
@@ -24,5 +25,9 @@ export function WeatherController({ cloud, foreground }) {
 
     function clear() {
         isRaining = false;
+    }
+
+    function raining() {
+        return !!isRaining;
     }
 }

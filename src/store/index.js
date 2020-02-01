@@ -9,6 +9,9 @@ import {Cloud} from "@/Cloud.js";
 import {WeatherController} from "@/WeatherController.js";
 import {Foreground} from "@/Foreground.js";
 import {WeatherSlider} from "@/WeatherSlider.js";
+import {BlobBehaviourController} from "@/BlobBehaviourController.js";
+import {BlobWork} from "@/BlobWork.js";
+import {House} from "@/House.js";
 
 Vue.use(Vuex);
 
@@ -23,6 +26,10 @@ const cloudBop = CloudBop({ cloud });
 const blob = BlobCharacter({ state: () => store.state });
 const map = DisplayMap({ state: () => store.state });
 const blobWander = BlobWander({ blob, map });
+const house = House({ state: () => store.state.house });
+const blobWork = BlobWork({ blob, house, map });
+
+const blobBehaviourController = BlobBehaviourController({ blobWork, blobWander, weatherController });
 
 const weatherSlider = WeatherSlider({
     id: 'WeatherSlider',
@@ -35,7 +42,9 @@ const sliders = [
 
 const actions = [
     cloudBop.bop,
-    blobWander.wander,
+    blobWander.run,
+    blobWork.run,
+    blobBehaviourController.run,
     weatherController.run
 ];
 const game = Game({ actions });
@@ -61,10 +70,20 @@ store = new Vuex.Store({
         },
         blob: {
             width: 1,
+            inHands: {
+                type: 'empty'
+            },
             position: {
                 x: 3,
                 y: 1
             }
+        },
+        house: {
+            position: {
+                x: 13,
+                y: 1
+            },
+            order: 1
         },
         sliders: [
             { id: 'WeatherSlider', wrapperHeight: 100, positionY: 2 }

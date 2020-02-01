@@ -2,7 +2,10 @@ export function BlobCharacter({ state }) {
     return {
         position,
         move,
-        width
+        width,
+        hasEmptyHands,
+        emptyHands,
+        holdFood
     };
 
     function position() {
@@ -17,5 +20,17 @@ export function BlobCharacter({ state }) {
 
     function width() {
         return state().blob.width;
+    }
+
+    function holdFood() {
+        state().blob.inHands.type = 'food';
+    }
+
+    function emptyHands() {
+        state().blob.inHands.type = 'empty';
+    }
+
+    function hasEmptyHands() {
+        return state().blob.inHands.type === 'empty';
     }
 }

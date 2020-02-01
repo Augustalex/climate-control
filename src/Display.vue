@@ -3,6 +3,7 @@
         <div class="display-background">
         </div>
         <Cloud />
+        <House />
         <Blob />
         <div class="display-ground" :style="groundStyle"></div>
         <Foreground />
@@ -13,10 +14,11 @@
     import Blob from "./Blob.vue"
     import Cloud from "./Cloud.vue"
     import Foreground from "@/Foreground.vue";
+    import House from "@/House.vue";
 
     export default {
         name: 'Display',
-        components: { Foreground, Blob, Cloud },
+        components: { House, Foreground, Blob, Cloud },
         computed: {
             ...mapState([
                 'map'
