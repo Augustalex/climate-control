@@ -9,15 +9,15 @@ export function Cloud({ state }) {
     };
 
     function rain() {
-        state.color = RainColor;
+        state().color = RainColor;
     }
 
     function clear() {
-        state.color = ClearColor;
+        state().color = ClearColor;
     }
 
     function setPosition({ x, y }) {
-        state.position.x = x;
-        state.position.y = y;
+        state().position.x = x;
+        state().position.y = y;
     }
 }

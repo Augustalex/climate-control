@@ -4,6 +4,6 @@ export function DisplayMap({ state }) {
     };
 
     function width() {
-        return state.map.width;
+        return state().map.width;
     }
 }

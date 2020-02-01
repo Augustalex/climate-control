@@ -6,16 +6,16 @@ export function BlobCharacter({ state }) {
     };
 
     function position() {
-        return { ...state.blob.position };
+        return { ...state().blob.position };
     }
 
     function move(x = 0, y = 0) {
-        const position = state.blob.position;
+        const position = state().blob.position;
         position.x += x;
         position.y += y;
     }
 
     function width() {
-        return state.blob.width;
+        return state().blob.width;
     }
 }

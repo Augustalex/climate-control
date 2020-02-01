@@ -8,10 +8,10 @@ export function Foreground({ state }) {
     };
 
     function clear() {
-        state.color = ClearColor;
+        state().color = ClearColor;
     }
 
     function rain() {
-        state.color = RainColor;
+        state().color = RainColor;
     }
 }

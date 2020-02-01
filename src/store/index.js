@@ -8,10 +8,39 @@ import {CloudBop} from "@/CloudBop.js";
 import {Cloud} from "@/Cloud.js";
 import {WeatherController} from "@/WeatherController.js";
 import {Foreground} from "@/Foreground.js";
+import {WeatherSlider} from "@/WeatherSlider.js";
 
 Vue.use(Vuex);
 
-const store = new Vuex.Store({
+let store;
+
+const cloud = Cloud({ state: () => store.state.cloud });
+const foreground = Foreground({ state: () => store.state.foreground });
+
+const weatherController = WeatherController({ cloud, foreground });
+
+const cloudBop = CloudBop({ cloud });
+const blob = BlobCharacter({ state: () => store.state });
+const map = DisplayMap({ state: () => store.state });
+const blobWander = BlobWander({ blob, map });
+
+const weatherSlider = WeatherSlider({
+    id: 'WeatherSlider',
+    state: () => store.state.sliders.find(s => s.id === 'WeatherSlider'),
+    weatherController
+});
+const sliders = [
+    weatherSlider
+];
+
+const actions = [
+    cloudBop.bop,
+    blobWander.wander,
+    weatherController.run
+];
+const game = Game({ actions });
+
+store = new Vuex.Store({
     state: {
         map: {
             scale: 4,
@@ -36,27 +65,22 @@ const store = new Vuex.Store({
                 x: 3,
                 y: 1
             }
-        }
+        },
+        sliders: [
+            { id: 'WeatherSlider', wrapperHeight: 100, positionY: 2 }
+        ]
     },
     mutations: {},
-    actions: {},
+    actions: {
+        updateSlider
+    },
     modules: {}
 });
 
-const cloud = Cloud({ state: store.state.cloud });
-const foreground = Foreground({ state: store.state.foreground });
+function updateSlider({ state }, { id, ...data }) {
+    sliders.find(s => s.is(id)).update(data);
+}
 
-const weatherController = WeatherController({ cloud, foreground });
-const cloudBop = CloudBop({ cloud });
-const blob = BlobCharacter({ state: store.state });
-const map = DisplayMap({ state: store.state });
-const blobWander = BlobWander({ blob, map });
-const actions = [
-    cloudBop.bop,
-    blobWander.wander,
-    weatherController.run
-];
-const game = Game({ actions });
 game.start();
 
 export default store;

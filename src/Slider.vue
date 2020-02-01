@@ -7,36 +7,46 @@
 </template>
 
 <script>
+    import {mapState, mapActions} from 'vuex';
+
     const ActiveColor = 'rgb(220,220,220)';
     const InActiveColor = 'rgb(180,180,180)';
 
     export default {
         name: 'Slider',
+        props: {
+            id: {
+                type: String,
+                default: 'WeatherSlider'
+            }
+        },
         data() {
             return {
                 color: '',
-                wrapperHeight: 100,
                 thumbHeight: 20,
-                positionY: 2,
                 lastMousePosition: null,
                 mousePosition: null
             }
         },
         computed: {
+            ...mapState([
+                'sliders'
+            ]),
+            sliderData() {
+                return this.sliders.find(s => s.id === this.id);
+            },
             wrapperStyle() {
                 return {
-                    height: `${this.wrapperHeight}px`,
+                    height: `${this.sliderData.wrapperHeight}px`,
                 };
             },
             thumbStyle() {
                 return {
-                    bottom: `${this.positionY}px`,
+                    bottom: `${this.sliderData.positionY}px`,
                     background: this.color,
                     height: `${this.thumbHeight}px`
                 };
             }
-        },
-        methods: {
         },
         mounted() {
             window.addEventListener('mousedown', event => {
@@ -63,12 +73,17 @@
                 this.mousePosition = newPosition;
 
                 if (this.moving) {
-                    // const deltaX = this.mousePosition.x - this.lastMousePosition.x;
                     const deltaY = this.mousePosition.y - this.lastMousePosition.y;
-                    const maxThumbPosition = this.wrapperHeight - this.thumbHeight - 2;
-                    this.positionY = clamp(this.positionY - deltaY, 2, maxThumbPosition);
+                    const maxThumbPosition = this.sliderData.wrapperHeight - this.thumbHeight - 2;
+                    const positionY = clamp(this.sliderData.positionY - deltaY, 2, maxThumbPosition);
+                    this.updateSlider({ id: this.id, positionY });
                 }
             });
+        },
+        methods: {
+            ...mapActions([
+                'updateSlider'
+            ]),
         }
     }
 

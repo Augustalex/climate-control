@@ -1,16 +1,14 @@
 export function WeatherController({ cloud, foreground }) {
-    let rain = true;
+    let isRaining = true;
 
     return {
-        run
+        run,
+        rain,
+        clear
     };
 
     function run() {
-        if (Math.random() < .2) {
-            rain = !rain;
-        }
-
-        if (rain) {
+        if (isRaining) {
             cloud.rain();
             foreground.rain();
         }
@@ -18,5 +16,13 @@ export function WeatherController({ cloud, foreground }) {
             cloud.clear();
             foreground.clear();
         }
+    }
+
+    function rain() {
+        isRaining = true;
+    }
+
+    function clear() {
+        isRaining = false;
     }
 }
