@@ -55,7 +55,7 @@ export function BlobWork({ blob, house, map }) {
     }
 
     function startWork() {
-        blob.holdFood();
+        blob.holdMaterial();
     }
 
     function nearLeftEdge() {

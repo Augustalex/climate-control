@@ -6,6 +6,7 @@
         <Cloud />
         <House />
         <Blob />
+        <Seed />
         <div class="display-ground" :style="groundStyle"></div>
         <Foreground />
     </div>
@@ -17,10 +18,11 @@
     import Foreground from "@/Foreground.vue";
     import House from "@/House.vue";
     import Sky from "@/Sky.vue";
+    import Seed from "@/Seed.vue";
 
     export default {
         name: 'Display',
-        components: { Sky, House, Foreground, Blob, Cloud },
+        components: { Seed, Sky, House, Foreground, Blob, Cloud },
         computed: {
             ...mapState([
                 'map'

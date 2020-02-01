@@ -15,6 +15,7 @@ import {House} from "@/House.js";
 import {Button} from "@/Button.js";
 import {SliderIsLowered} from "@/SliderIsLowered.js";
 import {Mode} from "@/Mode.js";
+import {Seed, SeedState} from "@/Seed.js";
 
 Vue.use(Vuex);
 
@@ -28,6 +29,7 @@ const buttonB = Button({ id: 'ButtonB', state: () => store.state.buttons.find(b 
 
 const weatherController = WeatherController({ state: () => store.state.weather, cloud, foreground });
 
+const seed = Seed({ weatherController, state: () => store.state.seed });
 const cloudBop = CloudBop({ cloud });
 const blob = BlobCharacter({ state: () => store.state });
 const map = DisplayMap({ state: () => store.state });
@@ -56,6 +58,7 @@ const buttons = [
 
 const actions = [
     weatherController.run,
+    seed.run,
     blobBehaviourController.run,
     blobWork.run,
     blobWander.run,
@@ -72,6 +75,10 @@ store = new Vuex.Store({
         },
         weather: {
             mode: Weathers.Clear
+        },
+        seed: {
+            state: SeedState.Underground,
+            ticks: 0
         },
         cloud: {
             width: 4,

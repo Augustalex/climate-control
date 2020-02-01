@@ -10,7 +10,8 @@ export function WeatherController({ state, cloud, foreground }) {
         rain,
         clear,
         bringOutTheSun,
-        raining
+        raining,
+        sunny,
     };
 
     function run() {

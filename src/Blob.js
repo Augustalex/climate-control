@@ -5,7 +5,7 @@ export function BlobCharacter({ state }) {
         width,
         hasEmptyHands,
         emptyHands,
-        holdFood
+        holdMaterial
     };
 
     function position() {
@@ -22,8 +22,8 @@ export function BlobCharacter({ state }) {
         return state().blob.width;
     }
 
-    function holdFood() {
-        state().blob.inHands.type = 'food';
+    function holdMaterial() {
+        state().blob.inHands.type = 'material';
     }
 
     function emptyHands() {
