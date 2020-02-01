@@ -27,10 +27,9 @@
             style() {
                 const scale = this.map.scale;
                 const size = SeedStateToSize[this.seed.state];
-                const groundHeight = 4;
                 return {
-                    left: `${2 * scale}px`,
-                    bottom: `${groundHeight}px`,
+                    left: `${this.seed.position.x * scale}px`,
+                    bottom: `${this.seed.position.y}px`,
                     height: `${size}px`,
                     background: SeedStateToColor[this.seed.state]
                 };

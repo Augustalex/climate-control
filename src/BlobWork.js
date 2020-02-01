@@ -1,4 +1,4 @@
-export function BlobWork({ blob, house, map }) {
+export function BlobWork({ blob, house, map, seed }) {
     let running = false;
     let direction = -1;
 
@@ -26,7 +26,7 @@ export function BlobWork({ blob, house, map }) {
             direction = houseToTheRight() ? -1 : 1;
         }
 
-        blob.move(blob.width() * .5 * delta * direction);
+        blob.move(blob.speed() * delta * direction);
 
         if (working()) {
             if (closeToHouse()) {
@@ -35,7 +35,7 @@ export function BlobWork({ blob, house, map }) {
             }
         }
         else {
-            if (nearLeftEdge()) {
+            if (nearSeed()) {
                 startWork();
             }
         }
@@ -55,11 +55,12 @@ export function BlobWork({ blob, house, map }) {
     }
 
     function startWork() {
+        seed.harvest();
         blob.holdMaterial();
     }
 
-    function nearLeftEdge() {
-        return blob.position().x < 1;
+    function nearSeed() {
+        return blob.position().x < seed.position().x;
     }
 
     function houseToTheRight() {

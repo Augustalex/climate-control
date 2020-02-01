@@ -24,7 +24,7 @@
             },
             handsStyle() {
                 return {
-                    background: 'green',
+                    background: 'saddlebrown',
                 };
             }
         }

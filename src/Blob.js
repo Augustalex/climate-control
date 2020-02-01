@@ -5,7 +5,8 @@ export function BlobCharacter({ state }) {
         width,
         hasEmptyHands,
         emptyHands,
-        holdMaterial
+        holdMaterial,
+        speed
     };
 
     function position() {
@@ -32,5 +33,9 @@ export function BlobCharacter({ state }) {
 
     function hasEmptyHands() {
         return state().blob.inHands.type === 'empty';
+    }
+
+    function speed() {
+        return width();
     }
 }

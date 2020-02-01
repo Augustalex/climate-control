@@ -35,9 +35,9 @@ const blob = BlobCharacter({ state: () => store.state });
 const map = DisplayMap({ state: () => store.state });
 const blobWander = BlobWander({ blob, map });
 const house = House({ state: () => store.state.house });
-const blobWork = BlobWork({ blob, house, map });
+const blobWork = BlobWork({ blob, house, map, seed });
 
-const blobBehaviourController = BlobBehaviourController({ blobWork, blobWander, weatherController });
+const blobBehaviourController = BlobBehaviourController({ blob, blobWork, blobWander, seed });
 
 const mode = Mode({ slider: { isLowered: sliderIsLowered }, buttonA, buttonB });
 
@@ -78,7 +78,11 @@ store = new Vuex.Store({
         },
         seed: {
             state: SeedState.Underground,
-            ticks: 0
+            ticks: 0,
+            position: {
+                x: 2,
+                y: 4
+            }
         },
         cloud: {
             width: 4,

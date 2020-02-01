@@ -6,18 +6,16 @@ export const SeedState = {
 
 export function Seed({ state, weatherController }) {
     return {
+        run,
         harvest,
         canBeHarvested,
-        run
+        position
     };
 
     function run() {
         if (underground()) {
-            console.log('underground');
             if (weatherController.raining()) {
-                console.log('raining');
                 tick();
-                console.log('tick', state().ticks);
                 if (readyToEvolve()) {
                     creepUp();
                 }
@@ -35,6 +33,10 @@ export function Seed({ state, weatherController }) {
 
     function canBeHarvested() {
         return getState() === SeedState.Ready;
+    }
+
+    function position() {
+        return { ...state().position };
     }
 
     function creepingUp() {

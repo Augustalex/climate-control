@@ -1,7 +1,7 @@
 import {Timer} from "@/Timer.js";
 
 export default function Game({ actions }) {
-    const timer = Timer({ duration: 1000 });
+    const timer = Timer({ duration: 750 });
 
     return {
         start

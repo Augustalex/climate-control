@@ -27,7 +27,7 @@ export function BlobWander({ blob, map }) {
             direction = -1;
         }
 
-        blob.move(blob.width() * .5 * delta * direction);
+        blob.move(blob.speed() * delta * direction);
     }
 
     function nearLeftEdge() {
@@ -35,7 +35,7 @@ export function BlobWander({ blob, map }) {
     }
 
     function nearRightEdge() {
-        const number = map.width() - 2;
-        return blob.position().x > (number);
+        const maxX = map.width() - 2;
+        return blob.position().x > (maxX);
     }
 }
