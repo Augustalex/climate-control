@@ -1,12 +1,11 @@
 <template>
-    <div class="button-wrapper" :style="wrapperStyle">
+    <div class="button-wrapper" :style="wrapperStyle" @click="toggle">
         <div class="button-pipe">
         </div>
         <div
             ref="thumb"
             class="button-thumb"
             :style="thumbStyle"
-            @click="toggle"
         >
         </div>
     </div>
@@ -43,7 +42,7 @@
             wrapperStyle() {
                 return {
                     height: `${this.buttonData.wrapperHeight}px`,
-                    left: `${300 + 100 * this.order}px`
+                    left: `${300 + 30 * this.order}px`
                 };
             },
             thumbStyle() {

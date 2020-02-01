@@ -1,9 +1,8 @@
-import {WeatherController} from "@/WeatherController.js";
-
 const Work = 'work-behaviour';
 const Wander = 'wander-behaviour';
+const Float = 'float-behaviour';
 
-export function BlobBehaviourController({ blob, blobWork, blobWander, seed }) {
+export function BlobBehaviourController({ blob, blobWork, blobWander, blobFloat, seed, disasterEngine }) {
     let behaviour = Wander;
 
     return {
@@ -13,7 +12,10 @@ export function BlobBehaviourController({ blob, blobWork, blobWander, seed }) {
     };
 
     function run() {
-        if (seed.canBeHarvested() || !blob.hasEmptyHands()) {
+        if (disasterEngine.flooding()) {
+            float();
+        }
+        else if (seed.canBeHarvested() || !blob.hasEmptyHands()) {
             work();
         }
         else {
@@ -31,6 +33,11 @@ export function BlobBehaviourController({ blob, blobWork, blobWander, seed }) {
         update();
     }
 
+    function float() {
+        behaviour = Float;
+        update();
+    }
+
     function update() {
         if (behaviour === Wander) {
             blobWander.start();
@@ -45,5 +52,12 @@ export function BlobBehaviourController({ blob, blobWork, blobWander, seed }) {
         else {
             blobWork.stop();
         }
+
+        if (behaviour === Float) {
+            blobFloat.start();
+        }
+        else {
+            blobFloat.stop();
+        }
     }
-};
+}

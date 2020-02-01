@@ -1,9 +1,14 @@
 export function DisplayMap({ state }) {
     return {
-        width
+        width,
+        height
     };
 
     function width() {
         return state().map.width;
+    }
+
+    function height() {
+        return state().map.height;
     }
 }

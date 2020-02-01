@@ -14,8 +14,10 @@ import {BlobWork} from "@/BlobWork.js";
 import {House} from "@/House.js";
 import {Button} from "@/Button.js";
 import {SliderIsLowered} from "@/SliderIsLowered.js";
-import {Mode} from "@/Mode.js";
+import {Mode, Modes} from "@/Mode.js";
 import {Seed, SeedState} from "@/Seed.js";
+import {BlobFloat} from "@/BlobFloat.js";
+import {DisasterEngine} from "@/DisasterEngine.js";
 
 Vue.use(Vuex);
 
@@ -36,10 +38,20 @@ const map = DisplayMap({ state: () => store.state });
 const blobWander = BlobWander({ blob, map });
 const house = House({ state: () => store.state.house });
 const blobWork = BlobWork({ blob, house, map, seed });
+const disasterEngine = DisasterEngine({ state: () => store.state.disaster, weatherController, map });
 
-const blobBehaviourController = BlobBehaviourController({ blob, blobWork, blobWander, seed });
+const blobFloat = BlobFloat({ blob, map, disasterEngine });
 
-const mode = Mode({ slider: { isLowered: sliderIsLowered }, buttonA, buttonB });
+const blobBehaviourController = BlobBehaviourController({
+    blob,
+    blobWork,
+    blobWander,
+    blobFloat,
+    seed,
+    disasterEngine
+});
+
+const mode = Mode({ state: () => store.state.mode, slider: { isLowered: sliderIsLowered }, buttonA, buttonB });
 
 const weatherSlider = WeatherSlider({
     id: 'WeatherSlider',
@@ -58,10 +70,12 @@ const buttons = [
 
 const actions = [
     weatherController.run,
+    disasterEngine.run,
     seed.run,
     blobBehaviourController.run,
     blobWork.run,
     blobWander.run,
+    blobFloat.run,
     cloudBop.bop
 ];
 const game = Game({ actions });
@@ -71,10 +85,19 @@ store = new Vuex.Store({
         map: {
             scale: 4,
             width: 20,
-            height: 10
+            height: 14
         },
         weather: {
-            mode: Weathers.Clear
+            mode: Weathers.Clear,
+            ticks: 0
+        },
+        mode: {
+            mode: Modes.Rain
+        },
+        disaster: {
+            flood: false,
+            fire: false,
+            ticks: 0
         },
         seed: {
             state: SeedState.Underground,
@@ -89,7 +112,7 @@ store = new Vuex.Store({
             height: 2,
             position: {
                 x: 2,
-                y: 6
+                y: 11
             },
             color: 'rgba(255,255,255,.7)'
         },

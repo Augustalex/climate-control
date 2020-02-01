@@ -8,6 +8,7 @@
         <Blob />
         <Seed />
         <div class="display-ground" :style="groundStyle"></div>
+        <DisasterOverlay />
         <Foreground />
     </div>
 </template>
@@ -19,10 +20,11 @@
     import House from "@/House.vue";
     import Sky from "@/Sky.vue";
     import Seed from "@/Seed.vue";
+    import DisasterOverlay from "@/DisasterOverlay.vue";
 
     export default {
         name: 'Display',
-        components: { Seed, Sky, House, Foreground, Blob, Cloud },
+        components: { DisasterOverlay, Seed, Sky, House, Foreground, Blob, Cloud },
         computed: {
             ...mapState([
                 'map'

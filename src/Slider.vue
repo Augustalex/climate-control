@@ -1,5 +1,6 @@
 <template>
     <div class="slider-wrapper" :style="wrapperStyle">
+        <div class="slider-lamp" :style="lampStyle" @click="reset"></div>
         <div class="slider-pipe">
         </div>
         <div ref="thumb" class="slider-thumb" :style="thumbStyle"></div>
@@ -8,6 +9,7 @@
 
 <script>
     import {mapState, mapActions} from 'vuex';
+    import {Modes} from "@/Mode.js";
 
     const ActiveColor = 'rgb(220,220,220)';
     const InActiveColor = 'rgb(180,180,180)';
@@ -25,13 +27,28 @@
                 color: '',
                 thumbHeight: 20,
                 lastMousePosition: null,
-                mousePosition: null
+                mousePosition: null,
+                lightUpTimeout: null,
+                lightUp: false,
             }
+        },
+        watch: {
+            allWayUp() {
+                clearTimeout(this.lightUpTimeout);
+                this.lightUp = true;
+                this.lightUpTimeout = setTimeout(() => {
+                    this.lightUp = false;
+                }, 1000);
+            },
         },
         computed: {
             ...mapState([
-                'sliders'
+                'sliders',
+                'mode'
             ]),
+            allWayUp() {
+                return this.sliderData.positionY > this.sliderData.wrapperHeight * .7;
+            },
             sliderData() {
                 return this.sliders.find(s => s.id === this.id);
             },
@@ -46,6 +63,27 @@
                     background: this.color,
                     height: `${this.thumbHeight}px`
                 };
+            },
+            lampStyle() {
+                return {
+                    background: this.lightUp ? this.lampColor : '#EEE',
+                    cursor: this.lightUp ? 'pointer' : 'auto'
+                };
+            },
+            lampColor() {
+                const mode = this.mode.mode;
+                if (mode === Modes.Clear) {
+                    return 'skyblue';
+                }
+                else if (mode === Modes.Rain) {
+                    return 'darkblue';
+                }
+                else if (mode === Modes.Sun) {
+                    return 'yellow';
+                }
+                else {
+                    return 'red';
+                }
             }
         },
         mounted() {
@@ -61,6 +99,7 @@
             });
             window.addEventListener('mouseup', event => {
                 this.moving = false;
+                this.reset();
             });
             window.addEventListener('mousemove', event => {
                 const newPosition = { x: event.screenX, y: event.screenY };
@@ -84,6 +123,9 @@
             ...mapActions([
                 'updateSlider'
             ]),
+            reset() {
+                this.updateSlider({ id: this.id, positionY: 2 });
+            }
         }
     }
 
@@ -95,9 +137,19 @@
 <style scoped>
     .slider-wrapper {
         position: absolute;
-        top: 240px;
+        top: 280px;
         left: 200px;
         width: 20px;
+    }
+
+    .slider-lamp {
+        position: absolute;
+        top: -20px;
+        border-radius: 100%;
+        background: #EEE;
+        border: 2px solid #666;
+        height: 16px;
+        width: 16px;
     }
 
     .slider-pipe {
@@ -108,6 +160,7 @@
         position: absolute;
         top: 0;
         left: 0;
+        user-select: none;
     }
 
     .slider-thumb {
@@ -116,5 +169,6 @@
         position: absolute;
         background: blue;
         left: 2px;
+        user-select: none;
     }
 </style>

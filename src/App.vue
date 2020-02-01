@@ -4,6 +4,7 @@
         <Slider />
         <Button id="ButtonA" :order="0" />
         <Button id="ButtonB" :order="1" />
+        <Lamp />
     </div>
 </template>
 
@@ -11,10 +12,11 @@
     import Display from "@/Display.vue";
     import Slider from "@/Slider.vue";
     import Button from "@/Button.vue";
+    import Lamp from "@/Lamp.vue";
 
     export default {
         name: 'app',
-        components: { Button, Slider, Display }
+        components: { Lamp, Button, Slider, Display }
     }
 </script>
 

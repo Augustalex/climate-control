@@ -5,28 +5,30 @@ export const Modes = {
     ChangeRate: 'mode-changeRate'
 };
 
-export function Mode({ slider, buttonA, buttonB }) {
-    let mode = Modes.Rain;
-
+export function Mode({ state, slider, buttonA, buttonB }) {
     return {
         onButtonUpdated,
-        mode: () => mode
+        mode: () => state().mode
     };
 
     function onButtonUpdated() {
         if (!slider.isLowered()) return;
 
         if (buttonA.on() && buttonB.on()) {
-            mode = Modes.Sun;
+            setMode(Modes.Sun);
         }
         else if (!buttonA.on() && buttonB.on()) {
-            mode = Modes.Clear;
+            setMode(Modes.Clear);
         }
         else if (buttonA.on() && !buttonB.on()) {
-            mode = Modes.Rain;
+            setMode(Modes.Rain);
         }
         else if (!buttonA.on() && !buttonB.on()) {
-            mode = Modes.ChangeRate;
+            setMode(Modes.ChangeRate);
         }
+    }
+
+    function setMode(newMode) {
+        state().mode = newMode;
     }
 }

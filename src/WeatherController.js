@@ -12,10 +12,12 @@ export function WeatherController({ state, cloud, foreground }) {
         bringOutTheSun,
         raining,
         sunny,
+        ticks: () => state().ticks
     };
 
     function run() {
         if (raining()) {
+            state().ticks += 1;
             cloud.rain();
             foreground.rain();
         }
@@ -30,15 +32,15 @@ export function WeatherController({ state, cloud, foreground }) {
     }
 
     function rain() {
-        state().mode = Weathers.Raining;
+        setMode(Weathers.Raining);
     }
 
     function clear() {
-        state().mode = Weathers.Clear;
+        setMode(Weathers.Clear);
     }
 
     function bringOutTheSun() {
-        state().mode = Weathers.Sunny;
+        setMode(Weathers.Sunny);
     }
 
     function raining() {
@@ -51,5 +53,10 @@ export function WeatherController({ state, cloud, foreground }) {
 
     function sunny() {
         return state().mode === Weathers.Sunny;
+    }
+
+    function setMode(newMode) {
+        state().mode = newMode;
+        state().ticks = 0;
     }
 }
