@@ -10,14 +10,17 @@ export function DisasterEngine({ state, weather, map, house }) {
 
     function run() {
         if (disasterRunning()) {
-            if (drying()) {
-                state().ticks = Math.max(0, state().ticks - 1);
-                if (state().ticks === 0) {
-                    endDrying();
+            if (flooding()) {
+                if (drying()) {
+                    decreaseDisasterTicks();
+
+                    if (state().ticks === 0) {
+                        endDrying();
+                    }
                 }
-            }
-            else {
-                state().ticks = Math.min(map.height() - 6, state().ticks + 1);
+                else {
+                    increaseDisasterToMax(map.height() - 6);
+                }
             }
         }
         else {
@@ -32,6 +35,14 @@ export function DisasterEngine({ state, weather, map, house }) {
                 }
             }
         }
+    }
+
+    function decreaseDisasterTicks() {
+        state().ticks = Math.max(0, state().ticks - 1);
+    }
+
+    function increaseDisasterToMax(max) {
+        state().ticks = Math.min(max, state().ticks + 1);
     }
 
     function disasterRunning() {
@@ -69,6 +80,5 @@ export function DisasterEngine({ state, weather, map, house }) {
 
     function extinguish() {
         state().fire = false;
-        state().ticks = 0;
     }
 }
