@@ -36,14 +36,14 @@ const buttonB = Button({ id: 'ButtonB', state: () => store.state.buttons.find(b 
 
 const weatherController = WeatherController({ state: () => store.state.weather, cloud, foreground, disaster });
 
-const seed = Seed({ weatherController, state: () => store.state.seed });
+const seed = Seed({ disaster, weatherController, state: () => store.state.seed });
 const cloudBop = CloudBop({ cloud });
 const blob = BlobCharacter({ state: () => store.state });
 const map = DisplayMap({ state: () => store.state });
 const blobWander = BlobWander({ blob, map });
 const house = House({ state: () => store.state.house });
 const blobWork = BlobWork({ blob, house, map, seed });
-const disasterEngine = DisasterEngine({ state: () => store.state.disaster, weather, map, house });
+const disasterEngine = DisasterEngine({ state: () => store.state.disaster, weather, map, house, seed });
 
 const houseFire = HouseFire({ disasterEngine, house });
 const blobFloat = BlobFloat({ blob, map, disasterEngine });

@@ -4,12 +4,14 @@ export const SeedState = {
     Ready: 'seed-ready'
 };
 
-export function Seed({ state, weatherController }) {
+export function Seed({ state, disaster, weatherController }) {
     return {
         run,
+        kill,
         harvest,
         canBeHarvested,
-        position
+        position,
+        state: () => getState()
     };
 
     function run() {
@@ -48,7 +50,9 @@ export function Seed({ state, weatherController }) {
     }
 
     function tick() {
-        state().ticks += 1;
+        if (!disaster.flooding()) {
+            state().ticks += 1;
+        }
     }
 
     function resetTicks() {
@@ -60,6 +64,11 @@ export function Seed({ state, weatherController }) {
     }
 
     function harvest() {
+        setState(SeedState.Underground);
+        resetTicks();
+    }
+
+    function kill() {
         setState(SeedState.Underground);
         resetTicks();
     }

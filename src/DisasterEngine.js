@@ -1,4 +1,6 @@
-export function DisasterEngine({ state, weather, map, house }) {
+import {SeedState} from "@/Seed.js";
+
+export function DisasterEngine({ state, weather, map, house, seed }) {
     return {
         run,
         flooding,
@@ -11,6 +13,10 @@ export function DisasterEngine({ state, weather, map, house }) {
     function run() {
         if (disasterRunning()) {
             if (flooding()) {
+                if (state().ticks > 2 && seed.state() !== SeedState.Underground) {
+                    seed.kill();
+                }
+
                 if (drying()) {
                     decreaseDisasterTicks();
 
