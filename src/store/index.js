@@ -18,6 +18,7 @@ import {Mode, Modes} from "@/Mode.js";
 import {Seed, SeedState} from "@/Seed.js";
 import {BlobFloat} from "@/BlobFloat.js";
 import {DisasterEngine} from "@/DisasterEngine.js";
+import {HouseFire} from "@/HouseFire.js";
 
 Vue.use(Vuex);
 
@@ -38,8 +39,9 @@ const map = DisplayMap({ state: () => store.state });
 const blobWander = BlobWander({ blob, map });
 const house = House({ state: () => store.state.house });
 const blobWork = BlobWork({ blob, house, map, seed });
-const disasterEngine = DisasterEngine({ state: () => store.state.disaster, weatherController, map });
+const disasterEngine = DisasterEngine({ state: () => store.state.disaster, weatherController, map, house });
 
+const houseFire = HouseFire({ disasterEngine, house });
 const blobFloat = BlobFloat({ blob, map, disasterEngine });
 
 const blobBehaviourController = BlobBehaviourController({
@@ -71,6 +73,7 @@ const buttons = [
 const actions = [
     weatherController.run,
     disasterEngine.run,
+    houseFire.run,
     seed.run,
     blobBehaviourController.run,
     blobWork.run,

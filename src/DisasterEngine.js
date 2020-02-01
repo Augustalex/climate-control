@@ -1,7 +1,9 @@
-export function DisasterEngine({ state, weatherController, map }) {
+export function DisasterEngine({ state, weatherController, map, house }) {
     return {
         run,
         flooding,
+        inflames,
+        extinguish,
         ticks: () => state().ticks,
     };
 
@@ -15,7 +17,9 @@ export function DisasterEngine({ state, weatherController, map }) {
                     flood();
                 }
                 else if (weatherController.sunny()) {
-                    enflame();
+                    if (!house.demolished()) {
+                        enflame();
+                    }
                 }
             }
         }

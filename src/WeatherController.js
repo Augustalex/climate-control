@@ -16,8 +16,9 @@ export function WeatherController({ state, cloud, foreground }) {
     };
 
     function run() {
+        state().ticks += 1;
+
         if (raining()) {
-            state().ticks += 1;
             cloud.rain();
             foreground.rain();
         }

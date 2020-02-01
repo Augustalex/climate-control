@@ -4,6 +4,7 @@
         <!--        </div>-->
         <Sky />
         <Cloud />
+        <Fire />
         <House />
         <Blob />
         <Seed />
@@ -21,10 +22,11 @@
     import Sky from "@/Sky.vue";
     import Seed from "@/Seed.vue";
     import DisasterOverlay from "@/DisasterOverlay.vue";
+    import Fire from "@/Fire.vue";
 
     export default {
         name: 'Display',
-        components: { DisasterOverlay, Seed, Sky, House, Foreground, Blob, Cloud },
+        components: { Fire, DisasterOverlay, Seed, Sky, House, Foreground, Blob, Cloud },
         computed: {
             ...mapState([
                 'map'
