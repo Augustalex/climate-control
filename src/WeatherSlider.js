@@ -16,10 +16,13 @@ export function WeatherSlider({ id, state, weatherController, mode }) {
 
     function onRaise() {
         if (mode.mode() === Modes.Rain) {
-            return weatherController.rain();
+            weatherController.rain();
         }
         else if (mode.mode() === Modes.Clear) {
-            return weatherController.clear();
+            weatherController.clear();
+        }
+        else if (mode.mode() === Modes.Sun) {
+            weatherController.bringOutTheSun();
         }
     }
 

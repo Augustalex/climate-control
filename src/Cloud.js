@@ -1,10 +1,12 @@
 const RainColor = 'rgb(90,90,130,1)';
 const ClearColor = 'rgb(255,255,255,.7)';
+const SunColor = 'rgba(255,255,255,0.5)';
 
 export function Cloud({ state }) {
     return {
         rain,
         clear,
+        sun,
         setPosition
     };
 
@@ -14,6 +16,10 @@ export function Cloud({ state }) {
 
     function clear() {
         state().color = ClearColor;
+    }
+
+    function sun() {
+        state().color = SunColor;
     }
 
     function setPosition({ x, y }) {

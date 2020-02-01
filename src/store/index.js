@@ -6,7 +6,7 @@ import {BlobWander} from "@/BlobWander.js";
 import {DisplayMap} from "@/DisplayMap.js";
 import {CloudBop} from "@/CloudBop.js";
 import {Cloud} from "@/Cloud.js";
-import {WeatherController} from "@/WeatherController.js";
+import {WeatherController, Weathers} from "@/WeatherController.js";
 import {Foreground} from "@/Foreground.js";
 import {WeatherSlider} from "@/WeatherSlider.js";
 import {BlobBehaviourController} from "@/BlobBehaviourController.js";
@@ -26,7 +26,7 @@ const foreground = Foreground({ state: () => store.state.foreground });
 const buttonA = Button({ id: 'ButtonA', state: () => store.state.buttons.find(b => b.id === 'ButtonA') });
 const buttonB = Button({ id: 'ButtonB', state: () => store.state.buttons.find(b => b.id === 'ButtonB') });
 
-const weatherController = WeatherController({ cloud, foreground, buttonA, buttonB });
+const weatherController = WeatherController({ state: () => store.state.weather, cloud, foreground });
 
 const cloudBop = CloudBop({ cloud });
 const blob = BlobCharacter({ state: () => store.state });
@@ -55,11 +55,11 @@ const buttons = [
 ];
 
 const actions = [
-    cloudBop.bop,
-    blobWander.run,
-    blobWork.run,
+    weatherController.run,
     blobBehaviourController.run,
-    weatherController.run
+    blobWork.run,
+    blobWander.run,
+    cloudBop.bop
 ];
 const game = Game({ actions });
 
@@ -69,6 +69,9 @@ store = new Vuex.Store({
             scale: 4,
             width: 20,
             height: 10
+        },
+        weather: {
+            mode: Weathers.Clear
         },
         cloud: {
             width: 4,

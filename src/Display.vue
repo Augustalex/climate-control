@@ -1,7 +1,8 @@
 <template>
     <div class="display-wrapper" :style="displayWrapperStyle">
-        <div class="display-background">
-        </div>
+        <!--        <div class="display-background">-->
+        <!--        </div>-->
+        <Sky />
         <Cloud />
         <House />
         <Blob />
@@ -15,10 +16,11 @@
     import Cloud from "./Cloud.vue"
     import Foreground from "@/Foreground.vue";
     import House from "@/House.vue";
+    import Sky from "@/Sky.vue";
 
     export default {
         name: 'Display',
-        components: { House, Foreground, Blob, Cloud },
+        components: { Sky, House, Foreground, Blob, Cloud },
         computed: {
             ...mapState([
                 'map'
@@ -47,15 +49,6 @@
         transform: scale(4);
         margin: 0 auto;
         top: 100px;
-    }
-
-    .display-background {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: skyblue;
     }
 
     .display-ground {

@@ -1,33 +1,54 @@
-export function WeatherController({ cloud, foreground, buttonA, buttonB }) {
-    let isRaining = false;
+export const Weathers = {
+    Raining: 'weather-raining',
+    Clear: 'weather-clear',
+    Sunny: 'weather-sunny'
+};
 
+export function WeatherController({ state, cloud, foreground }) {
     return {
         run,
         rain,
         clear,
+        bringOutTheSun,
         raining
     };
 
     function run() {
-        if (isRaining) {
+        if (raining()) {
             cloud.rain();
             foreground.rain();
         }
-        else {
+        else if (isClear()) {
             cloud.clear();
             foreground.clear();
+        }
+        else if (sunny()) {
+            cloud.sun();
+            foreground.sun();
         }
     }
 
     function rain() {
-        isRaining = true;
+        state().mode = Weathers.Raining;
     }
 
     function clear() {
-        isRaining = false;
+        state().mode = Weathers.Clear;
+    }
+
+    function bringOutTheSun() {
+        state().mode = Weathers.Sunny;
     }
 
     function raining() {
-        return !!isRaining;
+        return state().mode === Weathers.Raining;
+    }
+
+    function isClear() {
+        return state().mode === Weathers.Clear;
+    }
+
+    function sunny() {
+        return state().mode === Weathers.Sunny;
     }
 }
