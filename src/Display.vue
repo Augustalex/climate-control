@@ -1,0 +1,67 @@
+<template>
+    <div class="display-wrapper" :style="displayWrapperStyle">
+        <div class="display-background">
+        </div>
+        <Cloud />
+        <Blob />
+        <div class="display-ground" :style="groundStyle"></div>
+        <Foreground />
+    </div>
+</template>
+<script>
+    import {mapState} from 'vuex';
+    import Blob from "./Blob.vue"
+    import Cloud from "./Cloud.vue"
+    import Foreground from "@/Foreground.vue";
+
+    export default {
+        name: 'Display',
+        components: { Foreground, Blob, Cloud },
+        computed: {
+            ...mapState([
+                'map'
+            ]),
+            displayWrapperStyle() {
+                return {
+                    height: (this.map.height * this.map.scale) + 'px',
+                    width: (this.map.width * this.map.scale) + 'px'
+                };
+            },
+            groundStyle() {
+                const groundHeight = 1;
+                return {
+                    height: (groundHeight * this.map.scale) + 'px'
+                };
+            }
+        }
+    }
+</script>
+<style lang="scss">
+
+    .display-wrapper {
+        position: relative;
+        width: 25px;
+        height: 14px;
+        transform: scale(4);
+        margin: 0 auto;
+        top: 100px;
+    }
+
+    .display-background {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: skyblue;
+    }
+
+    .display-ground {
+        background: green;
+        width: 100%;
+        height: 2px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+</style>

@@ -1,12 +1,17 @@
 <template>
     <div id="app">
+        <Display />
+        <Slider />
     </div>
 </template>
 
 <script>
+    import Display from "@/Display.vue";
+    import Slider from "@/Slider.vue";
+
     export default {
         name: 'app',
-        components: {}
+        components: { Slider, Display }
     }
 </script>
 
@@ -19,4 +24,5 @@
         color: #2c3e50;
         margin-top: 60px;
     }
+
 </style>
