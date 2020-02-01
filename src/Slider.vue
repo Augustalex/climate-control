@@ -94,8 +94,8 @@
 
 <style scoped>
     .slider-wrapper {
-        position: relative;
-        top: 200px;
+        position: absolute;
+        top: 240px;
         left: 200px;
         width: 20px;
     }

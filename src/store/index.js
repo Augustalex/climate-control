@@ -12,15 +12,21 @@ import {WeatherSlider} from "@/WeatherSlider.js";
 import {BlobBehaviourController} from "@/BlobBehaviourController.js";
 import {BlobWork} from "@/BlobWork.js";
 import {House} from "@/House.js";
+import {Button} from "@/Button.js";
+import {SliderIsLowered} from "@/SliderIsLowered.js";
+import {Mode} from "@/Mode.js";
 
 Vue.use(Vuex);
 
 let store;
 
+const sliderIsLowered = SliderIsLowered({ state: () => store.state.sliders.find(s => s.id === 'WeatherSlider') });
 const cloud = Cloud({ state: () => store.state.cloud });
 const foreground = Foreground({ state: () => store.state.foreground });
+const buttonA = Button({ id: 'ButtonA', state: () => store.state.buttons.find(b => b.id === 'ButtonA') });
+const buttonB = Button({ id: 'ButtonB', state: () => store.state.buttons.find(b => b.id === 'ButtonB') });
 
-const weatherController = WeatherController({ cloud, foreground });
+const weatherController = WeatherController({ cloud, foreground, buttonA, buttonB });
 
 const cloudBop = CloudBop({ cloud });
 const blob = BlobCharacter({ state: () => store.state });
@@ -31,13 +37,21 @@ const blobWork = BlobWork({ blob, house, map });
 
 const blobBehaviourController = BlobBehaviourController({ blobWork, blobWander, weatherController });
 
+const mode = Mode({ slider: { isLowered: sliderIsLowered }, buttonA, buttonB });
+
 const weatherSlider = WeatherSlider({
     id: 'WeatherSlider',
     state: () => store.state.sliders.find(s => s.id === 'WeatherSlider'),
-    weatherController
+    weatherController,
+    mode
 });
+
 const sliders = [
     weatherSlider
+];
+const buttons = [
+    buttonA,
+    buttonB,
 ];
 
 const actions = [
@@ -87,17 +101,27 @@ store = new Vuex.Store({
         },
         sliders: [
             { id: 'WeatherSlider', wrapperHeight: 100, positionY: 2 }
+        ],
+        buttons: [
+            { id: 'ButtonA', wrapperHeight: 40, on: false },
+            { id: 'ButtonB', wrapperHeight: 40, on: false }
         ]
     },
     mutations: {},
     actions: {
-        updateSlider
+        updateSlider,
+        updateButton,
     },
     modules: {}
 });
 
 function updateSlider({ state }, { id, ...data }) {
     sliders.find(s => s.is(id)).update(data);
+}
+
+function updateButton({ state }, { id, ...data }) {
+    buttons.find(b => b.is(id)).update(data);
+    mode.onButtonUpdated();
 }
 
 game.start();

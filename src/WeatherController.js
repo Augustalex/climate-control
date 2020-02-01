@@ -1,4 +1,4 @@
-export function WeatherController({ cloud, foreground }) {
+export function WeatherController({ cloud, foreground, buttonA, buttonB }) {
     let isRaining = false;
 
     return {
