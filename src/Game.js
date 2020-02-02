@@ -1,4 +1,5 @@
 import {Timer} from "@/Timer.js";
+import {AudioDriver} from "@/AudioDriver.js";
 
 export default function Game({ actions }) {
     const timer = Timer({ duration: 750 });
@@ -10,6 +11,14 @@ export default function Game({ actions }) {
     function start() {
         timer.reset();
         loop();
+
+        let ambientPlaying = false;
+        window.addEventListener('click', () => {
+            if (!ambientPlaying) {
+                AudioDriver.play('ambient', .06, true);
+                ambientPlaying = true;
+            }
+        });
     }
 
     function loop() {
