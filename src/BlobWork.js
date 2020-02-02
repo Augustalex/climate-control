@@ -23,7 +23,7 @@ export function BlobWork({ blob, house, map, seed }) {
             direction = houseToTheRight() ? 1 : -1;
         }
         else {
-            direction = houseToTheRight() ? -1 : 1;
+            direction = seedToTheRight() ? 1 : -1;
         }
 
         blob.move(blob.speed() * delta * direction);
@@ -60,7 +60,11 @@ export function BlobWork({ blob, house, map, seed }) {
     }
 
     function nearSeed() {
-        return blob.position().x < seed.position().x;
+        return Math.abs(blob.position().x - seed.position().x) < 1;
+    }
+
+    function seedToTheRight() {
+        return seed.position().x > blob.position().x;
     }
 
     function houseToTheRight() {
