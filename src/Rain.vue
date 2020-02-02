@@ -1,11 +1,12 @@
 <template>
-    <div class="rain">
+    <div v-if="raining" class="rain">
         <img v-if="order === 0" src="/rain1.png" :style="style" />
         <img v-if="order === 1" src="/rain2.png" :style="style" />
     </div>
 </template>
 <script>
     import {mapState} from 'vuex';
+    import {Weathers} from "@/WeatherController.js";
 
     export default {
         name: 'Rain',
@@ -23,12 +24,16 @@
             ...mapState([
                 'map',
                 'cloud',
+                'weather'
             ]),
             style() {
                 const scale = this.map.scale;
                 return {
                     bottom: `${this.cloud.position.y * scale}px`
                 }
+            },
+            raining() {
+                return this.weather.mode === Weathers.Raining;
             }
         },
     }
