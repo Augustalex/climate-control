@@ -1,13 +1,7 @@
 <template>
     <div class="button-wrapper" :style="wrapperStyle" @click="toggle">
-        <div class="button-pipe">
-        </div>
-        <div
-            ref="thumb"
-            class="button-thumb"
-            :style="thumbStyle"
-        >
-        </div>
+        <img v-if="buttonData.on" src="/button_1.png" class="button--0"/>
+        <img v-else src="/button_0.png" class="button--1"/>
     </div>
 </template>
 
@@ -46,14 +40,6 @@
                     left: `${300 + 30 * this.order}px`
                 };
             },
-            thumbStyle() {
-                const thumbHeight = this.buttonData.wrapperHeight * .5;
-                return {
-                    bottom: `${this.buttonData.on ? thumbHeight : 0}px`,
-                    background: this.color,
-                    height: `${thumbHeight}px`
-                };
-            }
         },
         methods: {
             ...mapActions([
@@ -91,5 +77,21 @@
         position: absolute;
         background: blue;
         left: 2px;
+    }
+
+    .button--0 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 40px;
+    }
+
+    .button--1 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 40px;
     }
 </style>
