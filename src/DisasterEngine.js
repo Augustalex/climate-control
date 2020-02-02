@@ -1,4 +1,5 @@
 import {SeedState} from "@/Seed.js";
+import {AudioDriver} from "@/AudioDriver.js";
 
 export function DisasterEngine({ state, weather, map, house, seed }) {
     return {
@@ -74,6 +75,7 @@ export function DisasterEngine({ state, weather, map, house, seed }) {
 
     function enflame() {
         state().fire = true;
+        AudioDriver.play('fire', .2, true);
     }
 
     function inflames() {
@@ -86,5 +88,6 @@ export function DisasterEngine({ state, weather, map, house, seed }) {
 
     function extinguish() {
         state().fire = false;
+        AudioDriver.stop('fire');
     }
 }

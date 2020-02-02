@@ -1,3 +1,5 @@
+import {AudioDriver} from "@/AudioDriver.js";
+
 export function Disaster({ state }) {
     return {
         flooding,
@@ -25,5 +27,7 @@ export function Disaster({ state }) {
     function extinguish() {
         state().fire = false;
         state().ticks = 0;
+
+        AudioDriver.stop('fire');
     }
 }

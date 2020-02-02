@@ -1,6 +1,7 @@
 const tinyPlop = new Audio('/tiny_plop_2.mp3');
 const RainAudio = new Audio('/rain.mp3');
 const SunAudio = new Audio('/sun.mp3');
+const FireAudio = new Audio('/fire.mp3');
 
 const state = {
     toggleButton: {
@@ -13,6 +14,10 @@ const state = {
     },
     sun: {
         audio: SunAudio,
+        lastPlayed: 0
+    },
+    fire: {
+        audio: FireAudio,
         lastPlayed: 0
     }
 };
