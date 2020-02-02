@@ -1,3 +1,5 @@
+import {AudioDriver} from './AudioDriver.js'
+
 export const Weathers = {
     Raining: 'weather-raining',
     Clear: 'weather-clear',
@@ -65,6 +67,12 @@ export function WeatherController({ state, cloud, foreground, disaster }) {
     }
 
     function setMode(newMode) {
+        if (newMode === Weathers.Raining) {
+            AudioDriver.play('rain', .3, true);
+        }
+        else {
+            AudioDriver.stop('rain');
+        }
         state().mode = newMode;
         state().ticks = 0;
     }

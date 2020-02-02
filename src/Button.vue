@@ -60,7 +60,7 @@
                 'updateButton'
             ]),
             toggle() {
-                AudioDriver.play('toggleButton');
+                AudioDriver.play('toggleButton', .2);
                 this.updateButton({ id: this.id, on: !this.buttonData.on });
             }
         }
