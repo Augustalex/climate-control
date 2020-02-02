@@ -4,7 +4,7 @@
         <!--        </div>-->
         <Sky />
         <Cloud />
-<!--        <Fire />-->
+        <!--        <Fire />-->
         <Fire2 />
         <House />
         <Seed />
@@ -14,6 +14,7 @@
         <DisasterOverlay />
         <Foreground />
         <img src="/bounds_white.png" class="bounds" />
+        <span v-if="house.order === 3" class="hurra blink">hurra!</span>
     </div>
 </template>
 <script>
@@ -34,7 +35,8 @@
         components: { Fire2, Rain, Fire, DisasterOverlay, Seed, Sky, House, Foreground, Blob, Cloud },
         computed: {
             ...mapState([
-                'map'
+                'map',
+                'house'
             ]),
             displayWrapperStyle() {
                 return {
@@ -81,5 +83,23 @@
         left: 0;
         bottom: 0;
         right: 0;
+    }
+
+    .hurra {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        font-family: "Comic sans MS";
+        font-size: 16px;
+        top: 50%;
+        color: white;
+    }
+
+    @keyframes blink {
+        40% {
+            opacity: 0.0;
+        }
+    }
+    .blink {
+        animation: blink 2s step-start 0s infinite;
     }
 </style>
