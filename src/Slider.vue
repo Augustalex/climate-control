@@ -12,8 +12,8 @@
     import {mapState, mapActions} from 'vuex';
     import {Modes} from "@/Mode.js";
 
-    const ActiveColor = 'rgb(220,220,220)';
-    const InActiveColor = 'rgb(180,180,180)';
+    const ActiveColor = '#f73280';
+    const InActiveColor = '#f73280';
 
     export default {
         name: 'Slider',
@@ -168,7 +168,7 @@
         width: calc(100% - (4px));
         height: 20%;
         position: absolute;
-        background: blue;
+        background: #f73280;
         left: 2px;
         user-select: none;
     }

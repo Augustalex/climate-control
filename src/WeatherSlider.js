@@ -1,6 +1,9 @@
 import {Modes} from "@/Mode.js";
+import {AudioDriver} from "@/AudioDriver.js";
 
 export function WeatherSlider({ id, state, weatherController, mode, doomsday }) {
+    let playingAudio = false;
+
     return {
         is: otherId => otherId === id,
         update
@@ -10,7 +13,14 @@ export function WeatherSlider({ id, state, weatherController, mode, doomsday }) 
         Object.assign(state(), { ...data });
 
         if (raised()) {
+            if (!playingAudio) {
+                playingAudio = true;
+                AudioDriver.play('toggleButton', .2);
+            }
             onRaise()
+        }
+        else {
+            playingAudio = false;
         }
     }
 
