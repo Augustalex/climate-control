@@ -85,6 +85,13 @@
         left: 0;
         width: 20px;
         height: 40px;
+        user-select: none;
+
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
     }
 
     .button--1 {
@@ -93,5 +100,12 @@
         left: 0;
         width: 20px;
         height: 40px;
+        user-select: none;
+
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
     }
 </style>

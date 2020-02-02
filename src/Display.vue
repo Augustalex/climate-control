@@ -64,6 +64,14 @@
         transform: scale(4);
         margin: 0 auto;
         top: 100px;
+
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
+
+        user-select: none;
     }
 
     .display-ground {
