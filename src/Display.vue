@@ -67,7 +67,7 @@
     }
 
     .display-ground {
-        background: green;
+        background: #2f7e3a;
         width: 100%;
         height: 2px;
         position: absolute;
