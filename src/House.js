@@ -2,6 +2,7 @@ export function House({ state }) {
     return {
         repair,
         tear,
+        order: () => state().order,
         demolished: () => state().order === 0,
         position
     };

@@ -21,6 +21,7 @@ import {DisasterEngine} from "@/DisasterEngine.js";
 import {HouseFire} from "@/HouseFire.js";
 import {Weather} from "@/Weather.js";
 import {Disaster} from "@/Disaster.js";
+import {Doomsday} from "@/Doomsday.js";
 
 Vue.use(Vuex);
 
@@ -45,6 +46,8 @@ const house = House({ state: () => store.state.house });
 const blobWork = BlobWork({ blob, house, map, seed });
 const disasterEngine = DisasterEngine({ state: () => store.state.disaster, weather, map, house, seed });
 
+const doomsday = Doomsday({ state: () => store.state, house, weatherController, seed });
+
 const houseFire = HouseFire({ disasterEngine, house });
 const blobFloat = BlobFloat({ blob, map, disasterEngine });
 
@@ -63,7 +66,8 @@ const weatherSlider = WeatherSlider({
     id: 'WeatherSlider',
     state: () => store.state.sliders.find(s => s.id === 'WeatherSlider'),
     weatherController,
-    mode
+    mode,
+    doomsday
 });
 
 const sliders = [
@@ -94,6 +98,7 @@ store = new Vuex.Store({
             width: 20,
             height: 14
         },
+        doomsday: false,
         weather: {
             mode: Weathers.Clear,
             ticks: 0

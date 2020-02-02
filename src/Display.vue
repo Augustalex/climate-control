@@ -14,7 +14,8 @@
         <DisasterOverlay />
         <Foreground />
         <img src="/bounds_white.png" class="bounds" />
-        <span v-if="house.order === 3" class="hurra blink">hurra!</span>
+        <span v-if="house.order === 4" class="hurra blink">hurra!</span>
+        <Doomsday />
     </div>
 </template>
 <script>
@@ -29,10 +30,11 @@
     import Fire from "@/Fire.vue";
     import Rain from "@/Rain.vue";
     import Fire2 from "@/Fire2.vue";
+    import Doomsday from "@/Doomsday.vue";
 
     export default {
         name: 'Display',
-        components: { Fire2, Rain, Fire, DisasterOverlay, Seed, Sky, House, Foreground, Blob, Cloud },
+        components: { Doomsday, Fire2, Rain, Fire, DisasterOverlay, Seed, Sky, House, Foreground, Blob, Cloud },
         computed: {
             ...mapState([
                 'map',

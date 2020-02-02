@@ -2,7 +2,8 @@ export const Modes = {
     Rain: 'mode-rain',
     Clear: 'mode-clear',
     Sun: 'mode-sun',
-    ChangeRate: 'mode-changeRate'
+    ChangeRate: 'mode-changeRate',
+    Doomsday: 'mode-doomsday'
 };
 
 export function Mode({ state, slider, buttonA, buttonB }) {
@@ -24,7 +25,7 @@ export function Mode({ state, slider, buttonA, buttonB }) {
             setMode(Modes.Rain);
         }
         else if (!buttonA.on() && !buttonB.on()) {
-            setMode(Modes.ChangeRate);
+            setMode(Modes.Doomsday);
         }
     }
 
