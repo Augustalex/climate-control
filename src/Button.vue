@@ -13,6 +13,7 @@
 
 <script>
     import {mapState, mapActions} from 'vuex';
+    import {AudioDriver} from "@/AudioDriver.js";
 
     export default {
         name: 'Button',
@@ -59,6 +60,7 @@
                 'updateButton'
             ]),
             toggle() {
+                AudioDriver.play('toggleButton');
                 this.updateButton({ id: this.id, on: !this.buttonData.on });
             }
         }

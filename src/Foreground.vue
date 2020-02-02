@@ -1,6 +1,5 @@
 <template>
     <div class="foreground" :style="style">
-
     </div>
 </template>
 

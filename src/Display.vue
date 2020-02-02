@@ -11,6 +11,7 @@
         <div class="display-ground" :style="groundStyle"></div>
         <DisasterOverlay />
         <Foreground />
+        <img src="/bounds_white.png" class="bounds" />
     </div>
 </template>
 <script>
@@ -64,5 +65,17 @@
         position: absolute;
         bottom: 0;
         left: 0;
+    }
+
+    .bounds {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform: scale(1.02);
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
     }
 </style>
