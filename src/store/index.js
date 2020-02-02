@@ -46,7 +46,7 @@ const house = House({ state: () => store.state.house });
 const blobWork = BlobWork({ blob, house, map, seed });
 const disasterEngine = DisasterEngine({ state: () => store.state.disaster, weather, map, house, seed });
 
-const doomsday = Doomsday({ state: () => store.state, house, weatherController, seed });
+const doomsday = Doomsday({ state: () => store.state, house, weatherController, seed, disasterEngine });
 
 const houseFire = HouseFire({ disasterEngine, house });
 const blobFloat = BlobFloat({ blob, map, disasterEngine });

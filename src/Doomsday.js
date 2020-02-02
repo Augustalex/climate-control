@@ -1,4 +1,6 @@
-export function Doomsday({ state, seed, weatherController, house }) {
+import {Disaster} from "@/Disaster.js";
+
+export function Doomsday({ state, seed, weatherController, house, disasterEngine }) {
     return {
         activate
     };
@@ -8,6 +10,7 @@ export function Doomsday({ state, seed, weatherController, house }) {
         setTimeout(() => {
             seed.kill();
             weatherController.clear();
+            disasterEngine.dry();
             for (let i = house.order(); i > 1; i++) {
                 house.tear();
             }
