@@ -68,11 +68,19 @@ export function WeatherController({ state, cloud, foreground, disaster }) {
 
     function setMode(newMode) {
         if (newMode === Weathers.Raining) {
-            AudioDriver.play('rain', .3, true);
+            AudioDriver.play('rain', .12, true);
         }
         else {
             AudioDriver.stop('rain');
         }
+
+        if (newMode === Weathers.Sunny) {
+            AudioDriver.play('sun', .05, true);
+        }
+        else {
+            AudioDriver.stop('sun');
+        }
+
         state().mode = newMode;
         state().ticks = 0;
     }

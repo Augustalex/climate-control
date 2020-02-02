@@ -1,5 +1,6 @@
 const tinyPlop = new Audio('/tiny_plop_2.mp3');
 const RainAudio = new Audio('/rain.mp3');
+const SunAudio = new Audio('/sun.mp3');
 
 const state = {
     toggleButton: {
@@ -8,6 +9,10 @@ const state = {
     },
     rain: {
         audio: RainAudio,
+        lastPlayed: 0
+    },
+    sun: {
+        audio: SunAudio,
         lastPlayed: 0
     }
 };
@@ -18,7 +23,6 @@ export const AudioDriver = {
 };
 
 function play(name, volume = 1, loop = false) {
-    console.log('play', name);
     const audioState = state[name];
 
     const now = Date.now();
