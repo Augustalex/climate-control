@@ -4,7 +4,8 @@
         <!--        </div>-->
         <Sky />
         <Cloud />
-        <Fire />
+<!--        <Fire />-->
+        <Fire2 />
         <House />
         <Seed />
         <div class="display-ground" :style="groundStyle"></div>
@@ -26,10 +27,11 @@
     import DisasterOverlay from "@/DisasterOverlay.vue";
     import Fire from "@/Fire.vue";
     import Rain from "@/Rain.vue";
+    import Fire2 from "@/Fire2.vue";
 
     export default {
         name: 'Display',
-        components: { Rain, Fire, DisasterOverlay, Seed, Sky, House, Foreground, Blob, Cloud },
+        components: { Fire2, Rain, Fire, DisasterOverlay, Seed, Sky, House, Foreground, Blob, Cloud },
         computed: {
             ...mapState([
                 'map'
