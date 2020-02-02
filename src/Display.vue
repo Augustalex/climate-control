@@ -9,6 +9,7 @@
         <Blob />
         <Seed />
         <div class="display-ground" :style="groundStyle"></div>
+        <Rain />
         <DisasterOverlay />
         <Foreground />
         <img src="/bounds_white.png" class="bounds" />
@@ -24,10 +25,11 @@
     import Seed from "@/Seed.vue";
     import DisasterOverlay from "@/DisasterOverlay.vue";
     import Fire from "@/Fire.vue";
+    import Rain from "@/Rain.vue";
 
     export default {
         name: 'Display',
-        components: { Fire, DisasterOverlay, Seed, Sky, House, Foreground, Blob, Cloud },
+        components: { Rain, Fire, DisasterOverlay, Seed, Sky, House, Foreground, Blob, Cloud },
         computed: {
             ...mapState([
                 'map'
