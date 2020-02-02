@@ -110,16 +110,16 @@ store = new Vuex.Store({
             state: SeedState.Underground,
             ticks: 0,
             position: {
-                x: 2,
-                y: 4
+                x: 3.5,
+                y: 3.5
             }
         },
         cloud: {
             width: 4,
-            height: 2,
+            height: 2.5,
             position: {
                 x: 2,
-                y: 11
+                y: 10.5
             },
             color: 'rgba(255,255,255,.7)'
         },

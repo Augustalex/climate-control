@@ -29,7 +29,7 @@
             style() {
                 const scale = this.map.scale;
                 return {
-                    bottom: `${this.cloud.position.y * scale}px`
+                    bottom: `${(this.cloud.position.y + .7) * scale}px`
                 }
             },
             raining() {

@@ -1,21 +1,13 @@
 <template>
-    <div class="seed" :style="style">
+    <div class="seed">
+        <img v-if="isSeed" class="tree--seed" src="/tree_seed.png" :style="seedStyle" />
+        <img v-if="isHalfTree" class="tree--half" src="/tree_half.png" :style="halfTreeStyle" />
+        <img v-if="isTree" class="tree--full" src="/tree_full.png" :style="treeStyle" />
     </div>
 </template>
 <script>
     import {mapState} from 'vuex';
     import {SeedState} from "@/Seed.js";
-
-    const SeedStateToSize = {
-        [SeedState.Underground]: 1,
-        [SeedState.CreepingUp]: 6,
-        [SeedState.Ready]: 12
-    };
-    const SeedStateToColor = {
-        [SeedState.Underground]: 'rgb(114,207,108)',
-        [SeedState.CreepingUp]: 'rgb(54,118,66)',
-        [SeedState.Ready]: 'rgb(109,69,44)'
-    };
 
     export default {
         name: 'Seed',
@@ -24,14 +16,34 @@
                 'seed',
                 'map'
             ]),
-            style() {
+            isSeed() {
+                return this.seed.state === SeedState.Underground;
+            },
+            isHalfTree() {
+                return this.seed.state === SeedState.CreepingUp;
+            },
+            isTree() {
+                return this.seed.state === SeedState.Ready;
+            },
+            seedStyle() {
                 const scale = this.map.scale;
-                const size = SeedStateToSize[this.seed.state];
                 return {
-                    left: `${this.seed.position.x * scale}px`,
-                    bottom: `${this.seed.position.y}px`,
-                    height: `${size}px`,
-                    background: SeedStateToColor[this.seed.state]
+                    left: `${(this.seed.position.x) * scale}px`,
+                    bottom: `${(this.seed.position.y)}px`,
+                };
+            },
+            halfTreeStyle() {
+                const scale = this.map.scale;
+                return {
+                    left: `${(this.seed.position.x) * scale - 2}px`,
+                    bottom: `${(this.seed.position.y)}px`,
+                };
+            },
+            treeStyle() {
+                const scale = this.map.scale;
+                return {
+                    left: `${(this.seed.position.x) * scale - 8}px`,
+                    bottom: `${(this.seed.position.y)}px`,
                 };
             }
         }
@@ -39,9 +51,23 @@
 </script>
 
 <style scoped>
-    .seed {
+    .seed > img {
         position: absolute;
-        width: 2px;
-        background: green;
+    }
+
+    .tree--seed {
+        width: 4px;
+        height: 6px;
+    }
+
+    .tree--half {
+        width: 7px;
+        height: 16px;
+    }
+
+    .tree--full {
+        bottom: 3px;
+        width: 20px;
+        height: 30px
     }
 </style>

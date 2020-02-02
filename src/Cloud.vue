@@ -1,5 +1,6 @@
 <template>
-    <div class="cloud" :style="style">
+    <div class="cloud">
+        <img src="/cloud.png" :style="cloudImageStyle" />
     </div>
 </template>
 <script>
@@ -11,10 +12,9 @@
                 'map',
                 'cloud'
             ]),
-            style() {
+            cloudImageStyle() {
                 const scale = this.map.scale;
                 return {
-                    background: this.cloud.color,
                     width: `${this.cloud.width * scale}px`,
                     height: `${this.cloud.height * scale}px`,
                     left: `${this.cloud.position.x * scale}px`,
@@ -26,7 +26,9 @@
 </script>
 
 <style scoped>
-    .cloud {
+    .cloud > img {
         position: absolute;
+        width: 20px;
+        height: 40px;
     }
 </style>
