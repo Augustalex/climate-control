@@ -6,9 +6,9 @@
         <Cloud />
         <Fire />
         <House />
-        <Blob />
         <Seed />
         <div class="display-ground" :style="groundStyle"></div>
+        <Blob />
         <Rain />
         <DisasterOverlay />
         <Foreground />
