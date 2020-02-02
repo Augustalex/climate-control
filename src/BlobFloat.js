@@ -21,7 +21,10 @@ export function BlobFloat({ blob, map, disasterEngine }) {
     function run(delta) {
         if (!running) return;
 
-        if (blob.position().y <= disasterEngine.ticks() - 2) {
+        if (disasterEngine.drying()) {
+            blob.setPosition({ x: blob.position().x, y: disasterEngine.ticks() });
+        }
+        else if (blob.position().y <= disasterEngine.ticks() - 2) {
             direction = 0;
 
             if (nearLeftEdge()) {

@@ -4,6 +4,7 @@ import {AudioDriver} from "@/AudioDriver.js";
 export function DisasterEngine({ state, weather, map, house, seed }) {
     return {
         run,
+        drying,
         flooding,
         inflames,
         extinguish,
