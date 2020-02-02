@@ -4,6 +4,7 @@
         <div class="slider-pipe">
         </div>
         <div ref="thumb" class="slider-thumb" :style="thumbStyle"></div>
+        <span class="activate">Lift up to activate climate configuration</span>
     </div>
 </template>
 
@@ -170,5 +171,18 @@
         background: blue;
         left: 2px;
         user-select: none;
+    }
+
+    .activate {
+        position: absolute;
+        top: 110px;
+        left: -55px;
+        font-family: "Courier New";
+        font-weight: bold;
+        font-size: 10px;
+        width: 130px;
+        text-align: center;
+        opacity: .6;
+        color: #dd6f29;
     }
 </style>
