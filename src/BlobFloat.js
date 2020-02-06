@@ -34,7 +34,7 @@ export function BlobFloat({ blob, map, disasterEngine }) {
                 directionY = Math.random() ? -1 : 1;
             }
 
-            if (disasterEngine.ticks() - 2 <= blob.position().y) {
+            if (disasterEngine.ticks() - 1 <= blob.position().y) {
                 directionY = -1;
             }
             else if (blob.position().y < 2) {
