@@ -1,7 +1,7 @@
 import {Weathers} from "@/WeatherController.js";
 import {Modes} from "@/Mode.js";
 import {SeedState} from "@/Seed.js";
-import {BlobStartingPositionY} from "@/Blob.js";
+import {BlobSpeedState, BlobStartingPositionY} from "@/Blob.js";
 
 export function StartState() {
     return {
@@ -44,6 +44,7 @@ export function StartState() {
             color: 'rgba(0,0,0,0)',
         },
         blob: {
+            speedState: BlobSpeedState.Walking,
             width: 1,
             inHands: {
                 type: 'empty'

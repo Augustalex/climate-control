@@ -10,6 +10,7 @@
 </template>
 <script>
     import {mapState} from 'vuex';
+    import {BlobSpeedState} from "@/Blob.js";
 
     export default {
         name: 'Blob',
@@ -19,9 +20,11 @@
             };
         },
         mounted() {
-            setInterval(() => {
+            const next = () => {
                 this.order = this.order === 0 ? 1 : 0;
-            }, 1000);
+                setTimeout(next, this.animationInterval);
+            };
+            next();
         },
         computed: {
             ...mapState([
@@ -29,6 +32,14 @@
                 'map',
                 'disaster',
             ]),
+            animationInterval() {
+                return this.running
+                    ? 250
+                    : 1000;
+            },
+            running() {
+                return this.blob.speedState === BlobSpeedState.Running;
+            },
             dead() {
                 return this.disaster.flood && this.disaster.ticks >= 8;
             },

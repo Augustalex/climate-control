@@ -1,8 +1,13 @@
 export const BlobStartingPositionY = 1;
+export const BlobSpeedState = {
+    Running: 'running',
+    Walking: 'walking'
+};
 
 export function BlobCharacter({ state }) {
     return {
-        startingPositionY: () => BlobStartingPositionY,
+        startingPositionY,
+        setSpeedState,
         position,
         setPosition,
         move,
@@ -12,6 +17,14 @@ export function BlobCharacter({ state }) {
         holdMaterial,
         speed
     };
+
+    function startingPositionY() {
+        return BlobStartingPositionY;
+    }
+
+    function setSpeedState(speedState) {
+        state().blob.speedState = speedState;
+    }
 
     function position() {
         return { ...state().blob.position };

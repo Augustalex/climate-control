@@ -1,13 +1,12 @@
 const Work = 'work-behaviour';
 const Wander = 'wander-behaviour';
 const Float = 'float-behaviour';
+const Run = 'run-behaviour';
 
-export function BlobBehaviourController({ blob, blobWork, blobWander, blobFloat, seed, disasterEngine }) {
+export function BlobBehaviourController({ blob, blobWork, blobWander, blobRunFromFire, blobFloat, seed, disasterEngine }) {
     let behaviour = Wander;
 
     return {
-        work,
-        wander,
         run
     };
 
@@ -17,6 +16,12 @@ export function BlobBehaviourController({ blob, blobWork, blobWander, blobFloat,
                 changeFrom(behaviour);
             }
             float();
+        }
+        else if (disasterEngine.inflames()) {
+            if (behaviour !== Run) {
+                changeFrom(behaviour);
+            }
+            makeBlobRun();
         }
         else if (seed.canBeHarvested() || !blob.hasEmptyHands()) {
             if (behaviour !== Work) {
@@ -47,6 +52,11 @@ export function BlobBehaviourController({ blob, blobWork, blobWander, blobFloat,
         update();
     }
 
+    function makeBlobRun() {
+        behaviour = Run;
+        update();
+    }
+
     function update() {
         if (behaviour === Wander) {
             blobWander.start();
@@ -67,6 +77,13 @@ export function BlobBehaviourController({ blob, blobWork, blobWander, blobFloat,
         }
         else {
             blobFloat.stop();
+        }
+
+        if (behaviour === Run) {
+            blobRunFromFire.start();
+        }
+        else {
+            blobRunFromFire.stop();
         }
     }
 

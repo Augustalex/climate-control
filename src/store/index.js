@@ -32,6 +32,7 @@ import GetDisaster from "@/store/query/GetDisaster.js";
 import GetCloud from "@/store/query/GetCloud.js";
 import GetProperty from "@/store/query/GetProperty.js";
 import FindButtonById from "@/store/query/FindButtonById.js";
+import {BlobRunFromFire} from "@/BlobRunFromFire.js";
 
 Vue.use(Vuex);
 
@@ -57,6 +58,7 @@ const mode = Mode({
 });
 const cloudBop = CloudBop({ cloud });
 const blobWander = BlobWander({ blob, map });
+const blobRunFromFire = BlobRunFromFire({ blob, map });
 const weatherController = WeatherController({ state: GetWeather(storeHolder), cloud, foreground, disaster });
 
 const seed = Seed({ disaster, weatherController, state: GetProperty('seed', storeHolder) });
@@ -71,6 +73,7 @@ const blobBehaviourController = BlobBehaviourController({
     blob,
     blobWork,
     blobWander,
+    blobRunFromFire,
     blobFloat,
     seed,
     disasterEngine
@@ -92,6 +95,7 @@ const game = Game({
         seed.run,
         blobBehaviourController.run,
         blobWork.run,
+        blobRunFromFire.run,
         blobWander.run,
         blobFloat.run,
         cloudBop.bop

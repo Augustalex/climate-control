@@ -8,7 +8,7 @@ export function HouseFire({ disasterEngine, house }) {
     function run() {
         if (disasterEngine.inflames()) {
             tick += 1;
-            if (tick === 3) {
+            if (tick === 7) {
                 house.tear();
                 tick = 0;
 
