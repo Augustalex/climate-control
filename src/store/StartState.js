@@ -43,17 +43,7 @@ export function StartState() {
         foreground: {
             color: 'rgba(0,0,0,0)',
         },
-        blob: {
-            speedState: BlobSpeedState.Walking,
-            width: 1,
-            inHands: {
-                type: 'empty'
-            },
-            position: {
-                x: 3,
-                y: BlobStartingPositionY
-            }
-        },
+        blobs: [],
         house: {
             position: {
                 x: 13,

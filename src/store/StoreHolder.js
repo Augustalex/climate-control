@@ -1,6 +1,6 @@
 export function StoreHolder() {
 
-    let store = {};
+    let store = undefined;
 
     return {
         set,
@@ -12,6 +12,7 @@ export function StoreHolder() {
     }
 
     function get() {
+        if (!store) throw new Error('Getting store from StoreHolder before any store has been set');
         return store;
     }
 }

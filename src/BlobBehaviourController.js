@@ -3,7 +3,7 @@ const Wander = 'wander-behaviour';
 const Float = 'float-behaviour';
 const Run = 'run-behaviour';
 
-export function BlobBehaviourController({ blob, blobWork, blobWander, blobRunFromFire, blobFloat, seed, disasterEngine }) {
+export function BlobBehaviourController({ blob, blobWork, blobWander, blobRunFromFire, blobFloat, seed, disaster }) {
     let behaviour = Wander;
 
     return {
@@ -11,13 +11,13 @@ export function BlobBehaviourController({ blob, blobWork, blobWander, blobRunFro
     };
 
     function run() {
-        if (disasterEngine.flooding()) {
+        if (disaster.flooding()) {
             if (behaviour !== Float) {
                 changeFrom(behaviour);
             }
             float();
         }
-        else if (disasterEngine.inflames()) {
+        else if (disaster.inflames()) {
             if (behaviour !== Run) {
                 changeFrom(behaviour);
             }

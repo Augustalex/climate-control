@@ -1,4 +1,4 @@
-export function BlobFloat({ blob, map, disasterEngine }) {
+export function BlobFloat({ blob, map, disaster }) {
     let running = false;
     let direction = -1;
     let directionY = 0;
@@ -21,10 +21,10 @@ export function BlobFloat({ blob, map, disasterEngine }) {
     function run(delta) {
         if (!running) return;
 
-        if (disasterEngine.drying()) {
-            blob.setPosition({ x: blob.position().x, y: disasterEngine.ticks() });
+        if (disaster.drying()) {
+            blob.setPosition({ x: blob.position().x, y: disaster.ticks() });
         }
-        else if (blob.position().y <= disasterEngine.ticks() - 2) {
+        else if (blob.position().y <= disaster.ticks() - 2) {
             direction = 0;
 
             if (nearLeftEdge()) {
@@ -34,7 +34,7 @@ export function BlobFloat({ blob, map, disasterEngine }) {
                 directionY = Math.random() ? -1 : 1;
             }
 
-            if (disasterEngine.ticks() - 1 <= blob.position().y) {
+            if (disaster.ticks() - 1 <= blob.position().y) {
                 directionY = -1;
             }
             else if (blob.position().y < 2) {

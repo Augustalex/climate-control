@@ -4,7 +4,7 @@ export const SeedState = {
     Ready: 'seed-ready'
 };
 
-export function Seed({ state, disaster, weatherController }) {
+export function Seed({ state, disaster, weather }) {
     return {
         run,
         kill,
@@ -16,7 +16,7 @@ export function Seed({ state, disaster, weatherController }) {
 
     function run() {
         if (underground()) {
-            if (weatherController.raining()) {
+            if (weather.raining()) {
                 tick();
                 if (readyToEvolve()) {
                     creepUp();
@@ -24,7 +24,7 @@ export function Seed({ state, disaster, weatherController }) {
             }
         }
         else if (creepingUp()) {
-            if (weatherController.sunny()) {
+            if (weather.sunny()) {
                 tick();
                 if (readyToEvolve()) {
                     ready();

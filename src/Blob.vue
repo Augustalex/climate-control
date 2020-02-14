@@ -14,6 +14,7 @@
 
     export default {
         name: 'Blob',
+        props: ['blob'],
         data() {
             return {
                 order: 0,
@@ -28,7 +29,6 @@
         },
         computed: {
             ...mapState([
-                'blob',
                 'map',
                 'disaster',
             ]),

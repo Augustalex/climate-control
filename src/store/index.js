@@ -1,22 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Game from "@/Game.js";
-import {BlobCharacter} from "@/Blob.js";
-import {BlobWander} from "@/BlobWander.js";
 import {DisplayMap} from "@/DisplayMap.js";
 import {CloudBop} from "@/CloudBop.js";
 import {Cloud} from "@/Cloud.js";
 import {WeatherController} from "@/WeatherController.js";
 import {Foreground} from "@/Foreground.js";
 import {WeatherSlider} from "@/WeatherSlider.js";
-import {BlobBehaviourController} from "@/BlobBehaviourController.js";
-import {BlobWork} from "@/BlobWork.js";
 import {House} from "@/House.js";
 import {Button} from "@/Button.js";
 import {SliderIsLowered} from "@/SliderIsLowered.js";
 import {Mode} from "@/Mode.js";
 import {Seed} from "@/Seed.js";
-import {BlobFloat} from "@/BlobFloat.js";
 import {DisasterEngine} from "@/DisasterEngine.js";
 import {HouseFire} from "@/HouseFire.js";
 import {Weather} from "@/Weather.js";
@@ -32,7 +27,7 @@ import GetDisaster from "@/store/query/GetDisaster.js";
 import GetCloud from "@/store/query/GetCloud.js";
 import GetProperty from "@/store/query/GetProperty.js";
 import FindButtonById from "@/store/query/FindButtonById.js";
-import {BlobRunFromFire} from "@/BlobRunFromFire.js";
+import {BlobFactory} from "@/BlobFactory.js";
 
 Vue.use(Vuex);
 
@@ -43,7 +38,6 @@ const sliderIsLowered = SliderIsLowered({ state: FindWeatherSliderById(storeHold
 const weather = Weather({ state: GetWeather(storeHolder) });
 const buttonA = Button({ id: 'ButtonA', state: FindButtonById(storeHolder, 'ButtonA') });
 const buttonB = Button({ id: 'ButtonB', state: FindButtonById(storeHolder, 'ButtonB') });
-const blob = BlobCharacter({ state: () => storeHolder.get().state });
 const map = DisplayMap({ state: () => storeHolder.get().state });
 const house = House({ state: GetProperty('house', storeHolder) });
 const disaster = Disaster({ state: GetDisaster(storeHolder) });
@@ -57,27 +51,14 @@ const mode = Mode({
     buttonB
 });
 const cloudBop = CloudBop({ cloud });
-const blobWander = BlobWander({ blob, map });
-const blobRunFromFire = BlobRunFromFire({ blob, map });
 const weatherController = WeatherController({ state: GetWeather(storeHolder), cloud, foreground, disaster });
 
-const seed = Seed({ disaster, weatherController, state: GetProperty('seed', storeHolder) });
+const seed = Seed({ disaster, weather, state: GetProperty('seed', storeHolder) });
 
-const blobWork = BlobWork({ blob, house, map, seed });
 const disasterEngine = DisasterEngine({ state: GetProperty('disaster', storeHolder), weather, map, house, seed });
 
 const doomsday = Doomsday({ state: () => storeHolder.get().state, house, weatherController, seed, disasterEngine });
 const houseFire = HouseFire({ disasterEngine, house });
-const blobFloat = BlobFloat({ blob, map, disasterEngine });
-const blobBehaviourController = BlobBehaviourController({
-    blob,
-    blobWork,
-    blobWander,
-    blobRunFromFire,
-    blobFloat,
-    seed,
-    disasterEngine
-});
 
 const weatherSlider = WeatherSlider({
     id: 'WeatherSlider',
@@ -85,21 +66,6 @@ const weatherSlider = WeatherSlider({
     weatherController,
     mode,
     doomsday
-});
-
-const game = Game({
-    actions: [
-        weatherController.run,
-        disasterEngine.run,
-        houseFire.run,
-        seed.run,
-        blobBehaviourController.run,
-        blobWork.run,
-        blobRunFromFire.run,
-        blobWander.run,
-        blobFloat.run,
-        cloudBop.bop
-    ]
 });
 
 const store = new Vuex.Store({
@@ -116,7 +82,27 @@ const store = new Vuex.Store({
     })
 });
 storeHolder.set(store);
+
 export default store;
+
+const blobFactory = BlobFactory({
+    storeHolder,
+    map,
+    house,
+    disaster,
+    seed
+});
+
+const game = Game({
+    actions: [
+        weatherController.run,
+        disasterEngine.run,
+        houseFire.run,
+        seed.run,
+        ...blobFactory.create().actions,
+        cloudBop.bop
+    ]
+});
 
 ambientMusicPlayer.init();
 game.start();

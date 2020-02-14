@@ -5,7 +5,9 @@ export function Disaster({ state }) {
         flooding,
         dry,
         inflames,
-        extinguish
+        extinguish,
+        drying: () => state().drying,
+        ticks: () => state().ticks,
     };
 
     function dry() {

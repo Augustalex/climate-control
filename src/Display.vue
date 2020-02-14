@@ -9,7 +9,7 @@
         <House />
         <Seed />
         <div class="display-ground" :style="groundStyle"></div>
-        <Blob />
+        <Blob v-for="blob in blobs" :blob="blob" />
         <Rain />
         <DisasterOverlay />
         <Foreground />
@@ -38,7 +38,8 @@
         computed: {
             ...mapState([
                 'map',
-                'house'
+                'house',
+                'blobs'
             ]),
             displayWrapperStyle() {
                 return {
@@ -109,6 +110,7 @@
             opacity: 0.0;
         }
     }
+
     .blink {
         animation: blink 2s step-start 0s infinite;
     }

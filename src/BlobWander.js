@@ -1,6 +1,6 @@
 export function BlobWander({ blob, map }) {
     let running = false;
-    let direction = -1;
+    let direction = Math.random() < .5 ? -1 : 1;
 
     return {
         start,
