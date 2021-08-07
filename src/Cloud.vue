@@ -1,6 +1,6 @@
 <template>
     <div class="cloud">
-        <img src="/cloud.png" :style="cloudImageStyle" />
+        <img src="./assets/cloud.png" :style="cloudImageStyle" />
     </div>
 </template>
 <script>

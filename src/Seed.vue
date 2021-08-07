@@ -1,8 +1,8 @@
 <template>
     <div class="seed">
-        <img v-if="isSeed" class="tree--seed" src="/tree_seed.png" :style="seedStyle" />
-        <img v-if="isHalfTree" class="tree--half" src="/tree_half.png" :style="halfTreeStyle" />
-        <img v-if="isTree" class="tree--full" src="/tree_full.png" :style="treeStyle" />
+        <img v-if="isSeed" class="tree--seed" src="./assets/tree_seed.png" :style="seedStyle" />
+        <img v-if="isHalfTree" class="tree--half" src="./assets/tree_half.png" :style="halfTreeStyle" />
+        <img v-if="isTree" class="tree--full" src="./assets/tree_full.png" :style="treeStyle" />
     </div>
 </template>
 <script>

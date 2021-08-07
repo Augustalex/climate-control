@@ -1,7 +1,7 @@
 <template>
     <div class="button-wrapper" :style="wrapperStyle" @click="toggle">
-        <img v-if="buttonData.on" src="/button_1.png" class="button--0"/>
-        <img v-else src="/button_0.png" class="button--1"/>
+        <img v-if="buttonData.on" src="./assets/button_1.png" class="button--0"/>
+        <img v-else src="./assets/button_0.png" class="button--1"/>
     </div>
 </template>
 

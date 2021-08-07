@@ -1,7 +1,7 @@
 <template>
     <div class="doomsday-fire" :style="fireStyle">
-        <img v-if="order === 0" src="/fire_0.png" class="fire--0" :style="fire0Style" />
-        <img v-else src="/fire_1.png" class="fire--1" :style="fire1Style" />
+        <img v-if="order === 0" src="./assets/fire_0.png" class="fire--0" :style="fire0Style" />
+        <img v-else src="./assets/fire_1.png" class="fire--1" :style="fire1Style" />
     </div>
 </template>
 <script>

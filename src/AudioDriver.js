@@ -1,9 +1,9 @@
-const tinyPlop = new Audio('/tiny_plop_2.mp3');
-const RainAudio = new Audio('/rain.mp3');
-const SunAudio = new Audio('/sun.mp3');
-const FireAudio = new Audio('/fire.mp3');
-const AmbientAudio = new Audio('/ambient.wav');
-const ScreamAudio = new Audio('/scream.mp3');
+const tinyPlop = new Audio('./tiny_plop_2.mp3');
+const RainAudio = new Audio('./rain.mp3');
+const SunAudio = new Audio('./sun.mp3');
+const FireAudio = new Audio('./fire.mp3');
+const AmbientAudio = new Audio('./ambient.wav');
+const ScreamAudio = new Audio('./scream.mp3');
 
 let lastPlayedName = '';
 

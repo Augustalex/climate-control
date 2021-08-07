@@ -1,10 +1,10 @@
 <template>
     <div class="blob" :style="style">
         <div v-if="!handsEmpty" class="blob-hands" :style="handsStyle"></div>
-        <img v-if="dead" class="blob--dead" src="/blob_dead.png" />
+        <img v-if="dead" class="blob--dead" src="./assets/blob_dead.png" />
         <template v-else>
-            <img v-if="order === 0 || stuckInNormal" class="blob--order0" src="/blob_normal.png" />
-            <img v-else class="blob--order1" src="/blob_squished.png" />
+            <img v-if="order === 0 || stuckInNormal" class="blob--order0" src="./assets/blob_normal.png" />
+            <img v-else class="blob--order1" src="./assets/blob_squished.png" />
         </template>
     </div>
 </template>

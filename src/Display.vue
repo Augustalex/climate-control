@@ -13,7 +13,7 @@
         <Rain />
         <DisasterOverlay />
         <Foreground />
-        <img src="/bounds_white.png" class="bounds" />
+        <img src="./assets/bounds_white.png" class="bounds" />
         <span v-if="house.order === 4" class="hurra blink">hurra!</span>
         <Doomsday />
     </div>
@@ -64,7 +64,7 @@
         height: 14px;
         transform: scale(4);
         margin: 0 auto;
-        top: 100px;
+        top: 85px;
 
         -webkit-user-drag: none;
         -khtml-user-drag: none;

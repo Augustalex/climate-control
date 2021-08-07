@@ -1,7 +1,7 @@
 <template>
     <div v-if="raining" class="rain">
-        <img v-if="order === 0" src="/rain1.png" :style="style" />
-        <img v-if="order === 1" src="/rain2.png" :style="style" />
+        <img v-if="order === 0" src="./assets/rain1.png" :style="style" />
+        <img v-if="order === 1" src="./assets/rain2.png" :style="style" />
     </div>
 </template>
 <script>

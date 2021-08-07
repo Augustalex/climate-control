@@ -88,39 +88,60 @@
             }
         },
         mounted() {
-            window.addEventListener('mousedown', event => {
-                if (event.target === this.$refs.thumb) {
-                    this.moving = true;
-                    this.color = ActiveColor;
-                }
-                else {
-                    this.moving = false;
-                    this.color = InActiveColor;
-                }
-            });
-            window.addEventListener('mouseup', event => {
-                this.moving = false;
-                this.reset();
-            });
-            window.addEventListener('mousemove', event => {
-                const newPosition = { x: event.screenX, y: event.screenY };
-                if (!this.lastMousePosition) {
-                    this.lastMousePosition = newPosition;
-                }
-                else {
-                    this.lastMousePosition = { ...this.mousePosition };
-                }
-                this.mousePosition = newPosition;
+          const mouseDown = event => {
+            if (event.target === this.$refs.thumb) {
+              this.moving = true;
+              this.color = ActiveColor;
+            } else {
+              this.moving = false;
+              this.color = InActiveColor;
+            }
+          };
+          const mouseUp = event => {
+            this.moving = false;
+            this.reset();
+          };
+          const mouseOrTouchScreenPosition = event => {
+            if(event.touches) {
+              return {
+                x: event.touches[0].screenX,
+                y: event.touches[0].screenY,
+              };
+            }
+            else {
+              return {
+                x: event.screenX,
+                y: event.screenY,
+              }
+            }
+          }
+          const mouseMove = event => {
+            const newPosition = mouseOrTouchScreenPosition(event);
+            if (!this.lastMousePosition) {
+              this.lastMousePosition = newPosition;
+            } else {
+              this.lastMousePosition = { ...this.mousePosition };
+            }
+            this.mousePosition = newPosition;
 
-                if (this.moving) {
-                    const deltaY = this.mousePosition.y - this.lastMousePosition.y;
-                    const maxThumbPosition = this.sliderData.wrapperHeight - this.thumbHeight - 2;
-                    const positionY = clamp(this.sliderData.positionY - deltaY, 2, maxThumbPosition);
-                    this.updateSlider({ id: this.id, positionY });
-                }
-            });
+            if (this.moving) {
+              const deltaY = this.mousePosition.y - this.lastMousePosition.y;
+              const maxThumbPosition = this.sliderData.wrapperHeight - this.thumbHeight - 2;
+              const positionY = clamp(this.sliderData.positionY - deltaY, 2, maxThumbPosition);
+              this.updateSlider({ id: this.id, positionY });
+            }
+          };
+
+          window.addEventListener('mouseup', mouseUp);
+          window.addEventListener('mousedown', mouseDown);
+          window.addEventListener('mousemove', mouseMove);
+
+          window.addEventListener('touchend', mouseUp);
+          window.addEventListener('touchcancel', mouseUp);
+          window.addEventListener('touchstart', mouseDown);
+          window.addEventListener('touchmove', mouseMove);
         },
-        methods: {
+      methods: {
             ...mapActions([
                 'updateSlider'
             ]),
