@@ -1,4 +1,7 @@
-# sketched_game_002
+# Climate control
+
+Itch IO page:
+https://augustalex.itch.io/climate-control
 
 ## Project setup
 ```
